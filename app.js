@@ -38,6 +38,6 @@ App.use("/login", LoginRoutes);
 App.use("/admin", AdminRoutes);
 
 
-App.listen(8888, function(){
-    console.log('Your node js server is running on PORT: 8888');
+App.listen(3000, function(){
+    console.log('Your node js server is running on PORT: 3000');
 });
