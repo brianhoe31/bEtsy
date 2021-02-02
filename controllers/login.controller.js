@@ -1,26 +1,29 @@
-//require admin model
+const LoginModel        = require("../models/login.model.js");
 
 class LoginController {
 
     index(req, res) {
-        res.render("../views/login/index.ejs");
+        res.render("../views/login/index");
     }
 
     new(req, res) {
-        res.render("../views/login/new.ejs");
+        res.render("../views/login/new");
     }
 
+    //create a new user login  
     create(req, res) {
-        //validate post request 
-        //create a new user login 
+        let error = LoginModel.validateRegistration(req, res);
+        if(error.length > 0){
+            res.render("../views/login/new", {error: error});
+        }else {
+            //add credentials to the database 
+            //redirect to homepage with a message saying login successfully created
+            res.redirect("/login/index");
+        }
     }
 
     validateLogin(req, res) {
         //validate login credentials
-    }
-
-    validateRegistration(req, res) {
-        //validate new user registration form
     }
 
 }

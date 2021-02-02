@@ -5,12 +5,12 @@
         <form action="/login" method="post">
             <div class="form-group">
                 <label for="email">Email address</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
                     placeholder="Enter email">
             </div>
             <div class="form-group">
                 <label for="password">Password</label>
-                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
             </div>
             <div class="form-group">
                 <a href="/login/new">Don't have an account? Register now!</a>
@@ -19,5 +19,4 @@
         </form>
     </div>
 
-
-    <%- include("../partials/footer") %>
+<%- include("../partials/footer") %>
