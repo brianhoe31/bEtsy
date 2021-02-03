@@ -14,7 +14,9 @@
             </div>
 
             <% if(typeof error !== 'undefined'){ %>
-                <p class="error"><%= error %></p>
+                <% error.forEach(err => { %>
+                    <p class="error"><%= err %></p>
+                <% }) %>
             <% } %>
             
             <div class="form-group">

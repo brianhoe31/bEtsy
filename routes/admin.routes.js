@@ -26,4 +26,8 @@ AdminRoutes.get("/products/new", function(req, res){
     AdminController.product_new(req, res);
 })
 
+AdminRoutes.post("/products/new", function(req, res){
+    AdminController.product_new(req, res);
+})
+
 module.exports = AdminRoutes;

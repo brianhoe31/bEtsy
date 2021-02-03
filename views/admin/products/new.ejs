@@ -1,5 +1,48 @@
 <%- include("../../partials/adminheader") %>
 
-products NEW page to create new product
+    <h1>Add Ne Product</h1>
 
-<%- include("../../partials/footer") %>
+    <div class="container">
+        <h5 class="card-title text-center">Login</h5>
+        <form action="/admin/products/new" method="post">
+            <div class="form-group">
+                <label for="name">Product Name:</label>
+                <input type="text" name="name" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="description">Description:</label>
+                <input type="text" name="description" class="form-control" required>
+            </div>
+            <div class="dropdown">
+                <label for="category">Category:</label>
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    --Choose a Category--
+                </button>
+                <div class="dropdown-menu" name="category" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" name="pants">Pants</a>
+                    <a class="dropdown-item" href="#">Skirt</a>
+                    <a class="dropdown-item" href="#">Underwear</a>
+                </div>
+                <button class="btn btn-danger" type="button" aria-expanded="false">+</button>
+            </div>
+            <div class="form-group">
+                <label for="">Example select</label>
+                <select class="form-control" id="exampleFormControlSelect1">
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                  <option>5</option>
+                </select>
+              </div>
+            <div class="form-group">
+                <label for="images">Images:</label>
+                <button class="btn btn-primary" type="button" aria-expanded="false">UPLOAD</button>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Add Product</button>
+        </form>
+    </div>
+
+    <%- include("../../partials/footer") %>
