@@ -11,7 +11,7 @@ LoginRoutes.post("/", function(req, res){
 })
 
 LoginRoutes.get("/new", function(req, res){
-    LoginController.new(req, res);
+    LoginController.new(req, res,);
 })
 
 LoginRoutes.post("/new", function(req, res){

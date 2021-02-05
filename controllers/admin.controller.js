@@ -1,5 +1,4 @@
-//add admin model
-// const AdminModel        = require("../models/admin.model.js");
+const AdminModel        = require("../models/admin.model.js");
 
 class AdminController {
 

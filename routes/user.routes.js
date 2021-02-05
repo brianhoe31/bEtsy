@@ -3,6 +3,7 @@ const UserRoutes 		    = Express.Router();
 const UserController        = require('../controllers/user.controller');
 
 UserRoutes.get("/", function(req, res){
+    
     UserController.index(req, res);
 })
 

@@ -24,11 +24,11 @@
                 <label for="password_confirmation">Confirm Password</label>
                 <input type="password" name="password_confirmation" class="form-control" placeholder="Confirm Password" required>
             </div>
-            
-            <% if(typeof error !== 'undefined'){ %>
-                <% error.forEach(function(err){ %>
+
+            <% if(error !== undefined){ %>
+                <% error.forEach((err) => { %>
                     <p class="error"><%= err %></p>
-                <% })%>
+                <% }) %>
             <% } %>
 
             <button type="submit" class="btn btn-primary">Register</button>

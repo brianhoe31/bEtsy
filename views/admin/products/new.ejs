@@ -1,9 +1,7 @@
 <%- include("../../partials/adminheader") %>
 
-    <h1>Add Ne Product</h1>
-
     <div class="container">
-        <h5 class="card-title text-center">Login</h5>
+        <h5 class="card-title text-center">Add New Product</h5>
         <form action="/admin/products/new" method="post">
             <div class="form-group">
                 <label for="name">Product Name:</label>
@@ -13,28 +11,16 @@
                 <label for="description">Description:</label>
                 <input type="text" name="description" class="form-control" required>
             </div>
-            <div class="dropdown">
-                <label for="category">Category:</label>
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    --Choose a Category--
-                </button>
-                <div class="dropdown-menu" name="category" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" name="pants">Pants</a>
-                    <a class="dropdown-item" href="#">Skirt</a>
-                    <a class="dropdown-item" href="#">Underwear</a>
-                </div>
-                <button class="btn btn-danger" type="button" aria-expanded="false">+</button>
-            </div>
             <div class="form-group">
-                <label for="">Example select</label>
-                <select class="form-control" id="exampleFormControlSelect1">
-                  <option>1</option>
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4</option>
-                  <option>5</option>
+                <label for="">Category:</label>
+                <select class="form-control" name="category">
+                  <option>Pants</option>
+                  <option>Skirt</option>
+                  <option>Shorts</option>
+                  <option>Jeans</option>
+                  <option>Sweater</option>
                 </select>
+                <button class="btn btn-danger" type="button" aria-expanded="false">+</button>
               </div>
             <div class="form-group">
                 <label for="images">Images:</label>

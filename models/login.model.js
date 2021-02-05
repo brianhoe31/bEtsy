@@ -1,8 +1,6 @@
 const Mysql = require('mysql');
-const md5 = require('md5');
 const Model = require('./model.js');
-const e = require('express');
-const { resolveInclude } = require('ejs');
+const md5 = require('md5');
 
 
 class LoginModel extends Model {
@@ -10,19 +8,32 @@ class LoginModel extends Model {
     ///////REGISTRATION PAGE //////////
     //Check all input fields meet proper guidelines.
     validateRegistration(req, res) {
-        let error = [];
         const email_regex = /\S+@\S+\.\S+/;
 
         if (!email_regex.test(req.body.email)) {
-            error.push('Must be a valid email address.');
+            req.session.error.push('Must be a valid email address.');
         }
 
-        if (req.body.password.length < 1) {
-            error.push('Password must be at least 5 characters');
+        if (req.body.password.length < 4) {
+            req.session.error.push('Password must be at least 4 characters');
         } else if (req.body.password !== req.body.password_confirmation) {
-            error.push('Passwords must be matching');
+            req.session.error.push('Passwords must be matching');
         }
-        return error;
+
+        return req.session.error.length;
+    }
+
+    async duplicateEmail(req, res){
+        const query = "SELECT * FROM users WHERE email = ?";
+        const value = req.body.email;
+
+        const data = await this.executeQuery(query, value);
+
+        if(data.length === 0){
+            return false;
+        }else{
+            return true;
+        }
     }
 
     //Add new user to the db
@@ -45,16 +56,16 @@ class LoginModel extends Model {
     ///////LOGIN PAGE //////////
      //Check all input fields meet proper guidelines.
     validateLogin(req, res) {
-        let error = [];
         const email_regex = /\S+@\S+\.\S+/;
 
         if (!email_regex.test(req.body.email)) {
-            error.push("Enter a valid email");
+            req.session.error.push("Enter a valid email");
         }
-        if (req.body.password.length < 1) {
-            error.push("Password must  be at least 5 characters");
+        if (req.body.password.length < 4) {
+            req.session.error.push("Password must  be at least 4 characters");
         }
-        return error;
+
+        return req.session.error.length;
     }
 
     //Check if the account exists & validate password
@@ -64,8 +75,6 @@ class LoginModel extends Model {
 
         // let result = this.executeQuery(query, value)
         const user = await this.executeQuery(query, value);
-
-        
         
         const password = md5(req.body.password + user[0].salt);
 
@@ -75,25 +84,6 @@ class LoginModel extends Model {
             return false;
         }
     }
-
-    //solution without async/await////
-    // checkCredentials(req, res) {
-    //     return new Promise((resolve, reject) =>{
-    //         const query = "SELECT email, password, salt FROM users WHERE email = ? LIMIT 1";
-    //         const value = [req.body.email];
-
-    //         //added a resolve so that when this.executequery is resolved, it gets resolved out here and then sent back to controller
-    //         resolve(this.executeQuery(query, value).then((sqlData) => {
-    //             const password = md5(req.body.password + sqlData[0].salt);
-
-    //             if(sqlData[0].password == password){
-    //                 return sqlData;
-    //             }else {
-    //                 return "error";
-    //             }
-    //         })); 
-    //     })
-    // }
 
 }
 
