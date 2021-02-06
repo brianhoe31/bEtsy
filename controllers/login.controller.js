@@ -2,7 +2,7 @@ const { checkCredentials } = require("../models/login.model.js");
 const LoginModel = require("../models/login.model.js");
 
 class LoginController {
-
+    //load login page
     index(req, res) {
         const error = req.session.error;
         req.session.error = [];
@@ -10,6 +10,7 @@ class LoginController {
         res.render("../views/login/index", { error: error});
     }
 
+    //load new registration page
     new(req, res) {
         const error = req.session.error;
         req.session.error = [];
@@ -33,23 +34,23 @@ class LoginController {
         }
     }
 
+    //validate login credentials
     async login(req, res) {
-        //validate login credentials
-
         const result = LoginModel.validateLogin(req, res);
 
         if (result > 0) {
             res.redirect("/login");
+        } else {
+            const user = await LoginModel.checkCredentials(req, res);
+
+            if (user) {
+                res.redirect("/admin");
+            } else {
+                req.session.error.push('Email/password combination not valid.');
+                res.redirect("/login");
+            }
         }
-        // const user = await LoginModel.checkCredentials(req, res);
-
-        // if (user) {
-        //     res.redirect("/admin");
-        // } else {
-        //     res.redirect("/login");
-        // }
     }
-
 }
 
 const loginController = new LoginController;

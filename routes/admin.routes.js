@@ -30,4 +30,12 @@ AdminRoutes.post("/products/new", function(req, res){
     AdminController.product_new(req, res);
 })
 
+AdminRoutes.post("/products/new/category", function(req, res){
+    AdminController.product_new_category(req, res);
+})
+
+AdminRoutes.post("/products/new/images", function(req, res){
+    AdminController.products_new_images(req, res);
+})
+
 module.exports = AdminRoutes;

@@ -23,6 +23,7 @@ class LoginModel extends Model {
         return req.session.error.length;
     }
 
+    //check if there's a duplicate email already existing 
     async duplicateEmail(req, res){
         const query = "SELECT * FROM users WHERE email = ?";
         const value = req.body.email;
@@ -76,6 +77,10 @@ class LoginModel extends Model {
         // let result = this.executeQuery(query, value)
         const user = await this.executeQuery(query, value);
         
+        if(user.length === 0){
+            return false; 
+        }
+
         const password = md5(req.body.password + user[0].salt);
 
         if (password == user[0].password) {

@@ -49,6 +49,12 @@ table {
 
 
 /* CUSTOM CSS */
+html {
+	font-family: "Helvetica Neue", sans-serif;
+	width: 100%;
+	color: #666666;
+	text-align: center;
+  }
 
 body {
     height: 100%;
@@ -71,3 +77,36 @@ div.jumbotron{
 	margin: 20px;	
 	color: white;
 }
+
+
+/* POP UP WINDOW :for new categories form */
+  .popup-overlay {
+	/*Hides pop-up when there is no "active" class*/
+	visibility: hidden;
+	position: absolute;
+	background: #ffffff;
+	border: 3px solid #666666;
+	width: 20%;
+	height: 10%;
+	left: 20%;
+	top: 350px;
+  }
+  
+  .popup-overlay.active {
+	/*displays pop-up when "active" class is present*/
+	visibility: visible;
+	text-align: center;
+  }
+  
+  .popup-content {
+	/*Hides pop-up content when there is no "active" class */
+	visibility: hidden;
+	margin-top: 30px;
+  }
+  
+  .popup-content.active {
+	/*Shows pop-up content when "active" class is present */
+	visibility: visible;
+  }
+
+  /* POP UP WINDOW END */

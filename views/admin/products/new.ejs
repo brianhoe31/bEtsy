@@ -2,7 +2,7 @@
 
     <div class="container">
         <h5 class="card-title text-center">Add New Product</h5>
-        <form action="/admin/products/new" method="post">
+        <form class="main_form" action="/admin/products/new" method="post">
             <div class="form-group">
                 <label for="name">Product Name:</label>
                 <input type="text" name="name" class="form-control" required>
@@ -12,23 +12,35 @@
                 <input type="text" name="description" class="form-control" required>
             </div>
             <div class="form-group">
+                <label for="price">Price:</label>
+                <input type="number" name="price" step="0.01" min="0" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="inventory">Inventory:</label>
+                <input type="number" name="inventory" min="1" class="form-control" required>
+            </div>
+            <div class="form-group">
                 <label for="">Category:</label>
                 <select class="form-control" name="category">
-                  <option>Pants</option>
-                  <option>Skirt</option>
-                  <option>Shorts</option>
-                  <option>Jeans</option>
-                  <option>Sweater</option>
+                    <option value="Pants">Pants</option>
+                    <option>Skirt</option>
+                    <option>Shorts</option>
+                    <option>Jeans</option>
+                    <option>Sweater</option>
                 </select>
-                <button class="btn btn-danger" type="button" aria-expanded="false">+</button>
-              </div>
-            <div class="form-group">
-                <label for="images">Images:</label>
-                <button class="btn btn-primary" type="button" aria-expanded="false">UPLOAD</button>
+                <button class="btn btn-danger open" type="button" aria-expanded="false">+</button>
             </div>
-
-            <button type="submit" class="btn btn-primary">Add Product</button>
         </form>
+        <!-- Photos upload Form -->
+        <form id="image_form"  enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="photos-input">File input</label>
+                <input type="file" name="upload" multiple>
+                <button class="btn btn-primary image" type="submit" aria-expanded="false">Add Photos</button>
+            </div>
+        </form>
+            
+
     </div>
 
     <%- include("../../partials/footer") %>
