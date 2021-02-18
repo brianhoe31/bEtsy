@@ -1,5 +1,141 @@
 <%- include("../../partials/userheader") %>
 
-   Tempalte for cart page
+   <div class="container shopping_cart">
+      <div class="cart_overview">
+         <div class="row">
+            <table class="table-striped">
+               <thead>
+                  <tr>
+                     <th scope="col">Product</th>
+                     <th class="col"></th>
+                     <th scope="col">Price</th>
+                     <th scope="col">Quantity</th>
+                     <th scope="col">Subtotal</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <tr>
+                     <td><img src="https://www.idakoos.net/H0783TC2BN0000019130404040005YG0000A1A,state-nickname-california.jpg" alt="cal t-shirt"></td>
+                     <td>CAL T-SHIRT</td>
+                     <td>$9.99</td>
+                     <td>5</td>
+                     <td>$45.94</td>
+                  </tr>
+                  <tr>
+                     <td><img src="https://cdn.fs.grailed.com/api/file/bSM9ECF4TrqswGEOzMlb" alt="bahama shirt"></td>
+                     <td>BAHAMA PANTS</td>
+                     <td>$20.99</td>
+                     <td>2</td>
+                     <td>$40.98</td>
+                  </tr>
+                  <tr>
+                     <td><img src="https://images.unsplash.com/photo-1589359096049-85292b87bf51?ixid=MXwxMjA3fDB8MHxzZWFyY2h8Nnx8Y2FzaG1lcmUlMjBzd2VhdGVyfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60" alt="cashmere sweater"></td>
+                     <td>CASHMERE SWEATER</td>
+                     <td>$99.99</td>
+                     <td>1</td>
+                     <td>$99.99</td>
+                  </tr>
+               </tbody>
+            </table>
+         </div>
+         <div class="row total">
+            <p><span>SHIPPING: </span> $10.00</p>
+            <p><span>TOTAL: </span> $140.97</p>
+         </div>
+         <div class="row continue_shopping">
+            <button id="button-addon1" type="button" class="btn btn-warning">Continue Shopping</button>
+         </div>
+      </div>
 
-<%- include("../../partials/footer") %>
+      <div class="row">
+         <div class="col-6 shipping">
+            <form>
+               <h3>Shipping Information</h3>
+               <div class="form-group row">
+                  <label for="first_name" class="col-3">First Name:</label>
+                  <input type="text" class="form-control col-9" name="first_name" placeholder="ie. Joe">
+               </div>
+               <div class="form-group row">
+                  <label for="last_name" class="col-3">Last Name:</label>
+                  <input type="text" class="form-control col-9" name="last_name" placeholder="ie. Smith">
+               </div>
+               <div class="form-group row">
+                  <label for="last_name" class="col-3">Address:</label>
+                  <input type="text" class="form-control col-9" name="address">
+               </div>
+               <div class="form-group row">
+                  <label for="city" class="col-3">City:</label>
+                  <input type="text" class="form-control col-9" name="city">
+               </div>
+               <div class="form-group row">
+                  <label for="state" class="col-3">State:</label>
+                  <input type="text" class="form-control col-9" name="state">
+               </div>
+               <div class="form-group row">
+                  <label for="zipcode" class="col-3">Zipcode:</label>
+                  <input type="number" class="form-control col-9" name="zipcode">
+               </div>
+            </form>
+         </div>
+         <div class="col-6 billing">
+            <form>
+               <h3>Billing Information</h3>
+               <div class="form-group row">
+                  <label for="first_name" class="col-3">First Name:</label>
+                  <input type="text" class="form-control col-9" name="first_name" placeholder="ie. Joe" disabled>
+               </div>
+               <div class="form-group row">
+                  <label for="last_name" class="col-3">Last Name:</label>
+                  <input type="text" class="form-control col-9" name="last_name" placeholder="ie. Smith" disabled>
+               </div>
+               <div class="form-group row">
+                  <label for="last_name" class="col-3">Address:</label>
+                  <input type="text" class="form-control col-9" name="address" disabled>
+               </div>
+               <div class="form-group row">
+                  <label for="city" class="col-3">City:</label>
+                  <input type="text" class="form-control col-9" name="city" disabled>
+               </div>
+               <div class="form-group row">
+                  <label for="state" class="col-3">State:</label>
+                  <input type="text" class="form-control col-9" name="state" disabled>
+               </div>
+               <div class="form-group row">
+                  <label for="zipcode" class="col-3">Zipcode:</label>
+                  <input type="number" class="form-control col-9" name="zipcode" disabled>
+               </div>
+               <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="" checked>
+                  <label class="form-check-label" for="flexCheckChecked">
+                     Same as Shipping
+                  </label>
+               </div>
+            </form>
+         </div>
+      </div>
+      <div class="row payment">
+         <div class="col-4">
+            <form>
+               <h3>Payment Info</h3>
+               <div class="form-group row">
+                  <label for="card" class="col-3">Card:</label>
+                  <input type="number" class="form-control col-9" name="card" placeholder="xxxx-xxxx-xxxx-xxxx">
+               </div>
+               <div class="form-group row">
+                  <label for="security_code" class="col-3">Security Code:</label>
+                  <input type="number" class="form-control col-9" name="security_code">
+               </div>
+               <div class="form-group row">
+                  <label for="exp" class="col-3">Expiration:</label>
+                  <input type="number" class="form-control col-2" name="month" placeholder="MM"> / <input type="number"
+                     class="form-control col-2" name="year" placeholder="YYYY">
+               </div>
+               <div class="form-group row">
+                  <button type="submit" class="btn btn-primary">Confirm Purchase</button>
+               </div>
+            </form>
+         </div>
+      </div>
+   </div>
+
+   <%- include("../../partials/footer") %>

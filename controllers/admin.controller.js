@@ -21,11 +21,17 @@ class AdminController {
     }
 
     product_edit(req, res) {
-        res.render("../views/admin/products/edit");
+        res.redirect("/");
     }
 
     product_new(req, res) {
         res.render("../views/admin/products/new");
+    }
+
+    create_new_product(req, res) {
+        AdminModel.add_product();
+
+        res.redirect("/admin/products/new");
     }
 
     product_new_category(req, res) {

@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    //pop up form on new product page to add new category
+    // pop up form on new product page to add new category
     // $(".open").on("click", function () {
     //     console.log('hello');
     //     $(".popup-overlay, .popup-content").addClass("active");
@@ -29,9 +29,6 @@ $(document).ready(function () {
         e.preventDefault();
         //grab all form data  
         var formData = new FormData($(this)[0]);
-
-        console.log(formData);
-        console.log('this ran');
   
         $.ajax({
             url: '/admin/products/new/images',
@@ -44,11 +41,12 @@ $(document).ready(function () {
             success: function (returndata) {
                 //what to do after form has submitted 
                 console.log(returndata);
-                console.log(typeof returndata.files.upload)
+                console.log(typeof returndata.files.upload.name)
                 // if(typeof returndata.files.upload == array0)
                 for(const data of returndata.files.upload){
-                    $(".main_form > div:last-child").append(data);
+                    $("#image_input").append(data.name);
                 }
+                $("#image_input").append(returndata);
                 
             },
             error: function () {
@@ -58,7 +56,6 @@ $(document).ready(function () {
   
         return false;
     });
-
 });
 
 

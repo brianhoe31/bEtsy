@@ -27,7 +27,7 @@ AdminRoutes.get("/products/new", function(req, res){
 })
 
 AdminRoutes.post("/products/new", function(req, res){
-    AdminController.product_new(req, res);
+    AdminController.create_new_product(req, res);
 })
 
 AdminRoutes.post("/products/new/category", function(req, res){
