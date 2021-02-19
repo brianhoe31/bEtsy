@@ -1,5 +1,57 @@
 <%- include("../../partials/adminheader") %>
 
-products page that shows overview of all listed products
+<div class="container product_index">
+    <h1>Product Inventory</h1>
+    <div class="row justify-content-between">
+        <form class="form-inline">
+            <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success col-3" type="submit">Search</button>
+        </form>
+        <div class="form-group col-2">
+            <a href="/admin/products/new"><button class="btn btn-success col-12">Add Product</button></a>
+        </div>
+    </div>
+    <div class="row">
+        <table class="table-striped">
+            <thead>
+               <tr>
+                  <th scope="col">IMAGE</th>
+                  <th class="col">ID</th>
+                  <th scope="col">NAME</th>
+                  <th scope="col">INVENTORY AMT</th>
+                  <th scope="col">QUANTITY SOLD</th>
+                  <th scope="col">ACTION</th>
+               </tr>
+            </thead>
+            <tbody>
+               <tr>
+                  <td><img src="https://images.unsplash.com/photo-1589359096049-85292b87bf51?ixid=MXwxMjA3fDB8MHxzZWFyY2h8Nnx8Y2FzaG1lcmUlMjBzd2VhdGVyfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60" alt=""></td>
+                  <td>3</td>
+                  <td>T-SHIRT</td>
+                  <td>300</td>
+                  <td>20</td>
+                  <td><a href="/admin/products/edit">EDIT</a> | <a href="#">DELETE</a></td>
+               </tr>
+               <tr>
+                  <td><img src="https://s7d5.scene7.com/is/image/UrbanOutfitters/59986414_001_d?$medium$&qlt=80&fit=hfit" alt=""></td>
+                  <td>3</td>
+                  <td>T-SHIRT</td>
+                  <td>300</td>
+                  <td>20</td>
+                  <td><a href="#">EDIT</a> | <a href="#">DELETE</a></td>
+               </tr>
+               <tr>
+                  <td><img src="https://s7d5.scene7.com/is/image/UrbanOutfitters/58082694_001_d?$medium$&qlt=80&fit=hfit" alt=""></td>
+                  <td>3</td>
+                  <td>T-SHIRT</td>
+                  <td>300</td>
+                  <td>20</td>
+                  <td><a href="#">EDIT</a> | <a href="#">DELETE</a></td>
+               </tr>
+            </tbody>
+         </table>
+    </div>
+
+</div>
 
 <%- include("../../partials/footer") %>

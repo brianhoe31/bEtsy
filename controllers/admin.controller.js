@@ -21,7 +21,7 @@ class AdminController {
     }
 
     product_edit(req, res) {
-        res.redirect("/");
+        res.render("../views/admin/products/edit");
     }
 
     product_new(req, res) {

@@ -1,6 +1,118 @@
 <%- include("../../partials/adminheader") %>
 
-ORDERS INDEX PAGE 
-page that shows the table with all the orders 
+    <div class="container order_index">
+        <h1>Orders</h1>
+        <div class="row justify-content-between">
+            <form class="form-inline">
+                <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success col-3" type="submit">Search</button>
+            </form>
+            <div class="form-group col-2">
+                <select class="form-control col-12" name="sort">
+                    <option>--</option>
+                    <option>A-Z</option>
+                    <option>Most Recent</option>
+                    <option>Highest Value</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <table class="table-striped">
+                <thead>
+                   <tr>
+                      <th scope="col">ORDER ID</th>
+                      <th class="col">NAME</th>
+                      <th scope="col">DATE</th>
+                      <th scope="col">PRODUCT QTY</th>
+                      <th scope="col">TOTAL</th>
+                      <th scope="col">STATUS</th>
+                   </tr>
+                </thead>
+                <tbody>
+                   <tr>
+                      <td><a href="/admin/orders/show">3</a></td>
+                      <td>JOEY</td>
+                      <td>2/14/202</td>
+                      <td>5</td>
+                      <td>$45.95</td>
+                      <td>
+                        <div class="form-group">
+                            <select class="form-control" id="sel1">
+                                <option>SHIPPED</option>
+                                <option>CANCELLED</option>
+                                <option>IN PROCESS</option>
+                            </select>
+                        </div>
+                      </td>
+                   </tr>
+                   <tr>
+                      <td>38</td>
+                      <td>JOEY</td>
+                      <td>2/14/202</td>
+                      <td>5</td>
+                      <td>$45.95</td>
+                      <td>
+                        <div class="form-group">
+                            <select class="form-control" id="sel1">
+                                <option>SHIPPED</option>
+                                <option>CANCELLED</option>
+                                <option>IN PROCESS</option>
+                            </select>
+                        </div>
+                      </td>
+                   </tr>
+                   <tr>
+                      <td>48</td>
+                      <td>JOEY</td>
+                      <td>2/14/202</td>
+                      <td>5</td>
+                      <td>$45.95</td>
+                      <td>
+                        <div class="form-group">
+                            <select class="form-control" id="sel1">
+                                <option>IN PROCESS</option>
+                                <option>SHIPPED</option>
+                                <option>CANCELLED</option>
+                            </select>
+                        </div>
+                      </td>
+                   </tr>
+                   <tr>
+                      <td>58</td>
+                      <td>JOEY</td>
+                      <td>2/14/202</td>
+                      <td>5</td>
+                      <td>$45.95</td>
+                      <td>
+                        <div class="form-group">
+                            <select class="form-control" id="sel1" value="--">
+                                <option>IN PROCESS</option>
+                                <option>SHIPPED</option>
+                                <option>CANCELLED</option>
+                            </select>
+                        </div>
+                      </td>
+                   </tr>
+                   <tr>
+                      <td><a href="#">68</a></td>
+                      <td>JOEY</td>
+                      <td>2/14/202</td>
+                      <td>5</td>
+                      <td>$45.95</td>
+                      <td>
+                        <div class="form-group">
+                            <select class="form-control" id="sel1">
+                                <option>IN PROCESS</option>
+                                <option>SHIPPED</option>
+                                <option>CANCELLED</option>
+                            </select>
+                        </div>
+                      </td>
+                   </tr>
+                </tbody>
+             </table>
+        </div>
 
-<%- include("../../partials/footer") %>
+    </div>
+
+    <%- include("../../partials/footer") %>

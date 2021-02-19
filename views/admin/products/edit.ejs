@@ -1,5 +1,52 @@
 <%- include("../../partials/adminheader") %>
 
-products EDIT page to edit single product
+    <div class="container edit_product">
+        <div class="row justify-content-center">
+            <div class="col-6">
+                <h1 class="card-title text-center">Edit Product : ID 3</h1>
+                <form id="main_form" class="main_form" action="/admin/products/new" method="post"></form>
+                <form id="image_form" enctype="multipart/form-data"></form>
+                <div class="form-group">
+                    <label for="name">Product Name:</label>
+                    <input form="main_form" type="text" name="name" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="description">Description:</label>
+                    <input form="main_form" type="text" name="description" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="price">Price:</label>
+                    <input form="main_form" type="number" name="price" step="0.01" min="0" class="form-control"
+                        required>
+                </div>
+                <div class="form-group">
+                    <label for="inventory">Inventory:</label>
+                    <input form="main_form" type="number" name="inventory" min="1" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="">Category:</label>
+                    <select form="main_form" class="form-control" name="category">
+                        <option value="pants">Pants</option>
+                        <option value="skirt">Skirt</option>
+                        <option value="shorts">Shorts</option>
+                        <option value="jeans">Jeans</option>
+                        <option value="sweater">Sweater</option>
+                    </select>
+                    <button class="btn btn-danger open" type="button" aria-expanded="false">+</button>
+                </div>
 
-<%- include("../../partials/footer") %>
+                <!-- Photos upload Form -->
+                <div id="image_input" class="form-group">
+                    <label for="photos-input">File input (2 min.):</label>
+                    <input form="image_form" type="file" name="upload" multiple>
+                    <button form="image_form" class="btn btn-warning image" type="submit" aria-expanded="false">Add
+                        Photos</button>
+                </div>
+
+                <button form="main_form" class="btn btn-primary" type="submit">Add Product</button>
+            </div>
+        </div>
+    </div>
+
+
+    <%- include("../../partials/footer") %>
