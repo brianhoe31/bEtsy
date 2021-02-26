@@ -82,30 +82,30 @@
                <h3>Billing Information</h3>
                <div class="form-group row">
                   <label for="first_name" class="col-3">First Name:</label>
-                  <input type="text" class="form-control col-9" name="first_name" placeholder="ie. Joe" disabled>
+                  <input type="text" class="form-control col-9 billing_input" name="first_name" placeholder="ie. Joe">
                </div>
                <div class="form-group row">
                   <label for="last_name" class="col-3">Last Name:</label>
-                  <input type="text" class="form-control col-9" name="last_name" placeholder="ie. Smith" disabled>
+                  <input type="text" class="form-control col-9 billing_input" name="last_name" placeholder="ie. Smith">
                </div>
                <div class="form-group row">
                   <label for="last_name" class="col-3">Address:</label>
-                  <input type="text" class="form-control col-9" name="address" disabled>
+                  <input type="text" class="form-control col-9 billing_input" name="address">
                </div>
                <div class="form-group row">
                   <label for="city" class="col-3">City:</label>
-                  <input type="text" class="form-control col-9" name="city" disabled>
+                  <input type="text" class="form-control col-9 billing_input" name="city">
                </div>
                <div class="form-group row">
                   <label for="state" class="col-3">State:</label>
-                  <input type="text" class="form-control col-9" name="state" disabled>
+                  <input type="text" class="form-control col-9 billing_input" name="state">
                </div>
                <div class="form-group row">
                   <label for="zipcode" class="col-3">Zipcode:</label>
-                  <input type="number" class="form-control col-9" name="zipcode" disabled>
+                  <input type="number" class="form-control col-9 billing_input" name="zipcode">
                </div>
                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" value="" checked>
+                  <input class="form-check-input  same_as_ship" type="checkbox">
                   <label class="form-check-label" for="flexCheckChecked">
                      Same as Shipping
                   </label>
@@ -138,4 +138,5 @@
       </div>
    </div>
 
+   <script src="../../public/jquery/cart.js"></script>
    <%- include("../../partials/footer") %>

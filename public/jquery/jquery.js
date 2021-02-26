@@ -25,37 +25,8 @@ $(document).ready(function () {
     //     })
     // });
 
-    $("form#image_form").submit(function (e) {
-        e.preventDefault();
-        //grab all form data  
-        var formData = new FormData($(this)[0]);
-  
-        $.ajax({
-            url: '/admin/products/new/images',
-            type: 'POST',
-            data: formData,
-            async: false,
-            cache: false,
-            contentType: false,
-            processData: false,
-            success: function (returndata) {
-                //what to do after form has submitted 
-                console.log(returndata);
-                console.log(typeof returndata.files.upload.name)
-                // if(typeof returndata.files.upload == array0)
-                for(const data of returndata.files.upload){
-                    $("#image_input").append(data.name);
-                }
-                $("#image_input").append(returndata);
-                
-            },
-            error: function () {
-                alert("error in ajax form submission");
-            }
-        });
-  
-        return false;
-    });
+
+
 });
 
 

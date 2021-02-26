@@ -16,22 +16,34 @@ class AdminController {
         res.render("../views/admin/orders/show");
     }
 
-    products(req, res) {
-        res.render("../views/admin/products/index");
+    async products(req, res) {
+        const result = await AdminModel.get_table(req, res);
+
+        res.render("../views/admin/products/index", {products: result});
     }
 
-    product_edit(req, res) {
-        res.render("../views/admin/products/edit");
+    async product_edit(req, res) {
+        const result = await AdminModel.get_product(req, res);
+
+        res.render("../views/admin/products/edit", {product: result});
     }
 
     product_new(req, res) {
         res.render("../views/admin/products/new");
     }
 
-    create_new_product(req, res) {
-        AdminModel.add_product();
+    async create_new_product(req, res) {
+        AdminModel.validate_form(req, res);
 
-        res.redirect("/admin/products/new");
+        if(req.session.error.length === 0){
+            let data = await AdminModel.add_product(req, res);
+            console.log('sql data is : ', data);
+
+            res.json(true);
+            console.log('sent to db');
+        }else{
+            res.render("../views/partials/error.ejs", {errors: req.session.error});
+        }    
     }
 
     product_new_category(req, res) {
@@ -54,10 +66,25 @@ class AdminController {
                 next(err);
                 return;
             }
-            res.json({ fields, files });
+            req.session.image_files = files.file;
+
+            res.render("../views/partials/image_preview.ejs", {files:req.session.image_files});
         });
     }
 
+    async save_images(req, res) {
+        
+    }
+
+    products_remove_img_queue(req, res){
+        for(var i=0; i< req.session.image_files.length; i++){
+            if(req.session.image_files[i].name === req.params.id){
+                req.session.image_files.splice(i,1);
+
+                res.render("../views/partials/image_preview.ejs", {files:req.session.image_files});
+            }
+        }
+    }
 }
 
 const adminController = new AdminController;

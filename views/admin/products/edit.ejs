@@ -3,34 +3,35 @@
     <div class="container edit_product">
         <div class="row justify-content-center">
             <div class="col-6">
-                <h1 class="card-title text-center">Edit Product : ID 3</h1>
+                <h1 class="card-title text-center">Edit Product : <%= product[0].id %></h1>
                 <form id="main_form" class="main_form" action="/admin/products/new" method="post"></form>
                 <form id="image_form" enctype="multipart/form-data"></form>
                 <div class="form-group">
                     <label for="name">Product Name:</label>
-                    <input form="main_form" type="text" name="name" class="form-control" required>
+                    <input form="main_form" type="text" name="name" class="form-control" value="<%= product[0].name %>" required>
                 </div>
                 <div class="form-group">
                     <label for="description">Description:</label>
-                    <input form="main_form" type="text" name="description" class="form-control" required>
+                    <input form="main_form" type="text" name="description" class="form-control" value="<%= product[0].description %>" required>
                 </div>
                 <div class="form-group">
                     <label for="price">Price:</label>
-                    <input form="main_form" type="number" name="price" step="0.01" min="0" class="form-control"
+                    <input form="main_form" type="number" name="price" step="0.01" min="0" class="form-control" value="<%= product[0].price %>"
                         required>
                 </div>
                 <div class="form-group">
                     <label for="inventory">Inventory:</label>
-                    <input form="main_form" type="number" name="inventory" min="1" class="form-control" required>
+                    <input form="main_form" type="number" name="inventory" min="1" class="form-control" value="<%= product[0].inventory %>"required>
                 </div>
                 <div class="form-group">
                     <label for="">Category:</label>
                     <select form="main_form" class="form-control" name="category">
-                        <option value="pants">Pants</option>
-                        <option value="skirt">Skirt</option>
-                        <option value="shorts">Shorts</option>
-                        <option value="jeans">Jeans</option>
-                        <option value="sweater">Sweater</option>
+                        <option selected value="<%= product[0].category_id %>"></option>
+                        <option value="1">Pants</option>
+                        <option value="2">Skirt</option>
+                        <option value="3">Shorts</option>
+                        <option value="4">Jeans</option>
+                        <option value="5">Sweater</option>
                     </select>
                     <button class="btn btn-danger open" type="button" aria-expanded="false">+</button>
                 </div>

@@ -4,7 +4,9 @@ const md5 = require('md5');
 
 
 class LoginModel extends Model {
-
+	constructor() {
+		super();
+	}
     ///////REGISTRATION PAGE //////////
     //Check all input fields meet proper guidelines.
     validateRegistration(req, res) {

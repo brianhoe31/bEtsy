@@ -1,0 +1,15 @@
+<!-- uploaded images preview -->
+
+
+    <% for(var i=0; i<files.length; i++){ %>
+        <div>
+            <img src="../../../public/images/<%= files[i].name %>" alt="">
+            <p><%= files[i].name %></p>
+            <a href="/admin/products/delete/images/<%= files[i].name%>">[x]</a>
+        </div>
+
+    <% } %>
+
+
+
+    <script src="../../public/jquery/admin_products.js"></script>
