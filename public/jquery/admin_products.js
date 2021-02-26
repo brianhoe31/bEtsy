@@ -2,16 +2,28 @@
 $(document).ready(function () {
 
     /*product-index delete */
-    $("form.delete").hide();
 
-    $(".delete_btn").on("click", function(){
-        $("form").show();
+    //======= Pop-Up window to confirm Delete of Product ========//
+    $(".delete_btn").on("click", function(e){
+        e.preventDefault();
+
+        $.get($(this)[0].href, function(returndata){
+            $(".delete_form").html(returndata);
+        });
     })    
 
     $(".cancel").on("click", function(e){
         e.preventDefault();
 
-        $("form.delete").hide();
+        $(".delete_form").hide();
+    })
+
+    $("form .delete").submit(function(e) {
+        e.preventDefault();
+
+        $.post($(this)[0].href, function(){
+            window.location.href="/admin/products/";
+        })
     })
 
     //======= Adding images on Add-Product Page ========//

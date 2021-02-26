@@ -18,10 +18,6 @@ AdminRoutes.get("/products", function(req, res){
     AdminController.products(req, res);
 })
 
-AdminRoutes.get("/products/table", function(req, res){
-    AdminController.products_table(req, res);
-})
-
 AdminRoutes.get("/products/edit/:id", function(req, res){
     AdminController.product_edit(req, res);
 })
@@ -44,6 +40,18 @@ AdminRoutes.post("/products/new/images", function(req, res){
 
 AdminRoutes.post("/products/delete/images/:id", function(req, res){
     AdminController.products_remove_img_queue(req, res);
+})
+
+AdminRoutes.get("/products/delete/:id", function(req, res){
+    AdminController.products_remove_confirm(req, res);
+})
+
+AdminRoutes.post("/products/delete/:id", function(req, res){
+    AdminController.products_remove(req, res);
+})
+
+AdminRoutes.get("/products/:id", function(req, res){
+    AdminController.products_page(req, res);
 })
 
 module.exports = AdminRoutes;

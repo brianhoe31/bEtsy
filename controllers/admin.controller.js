@@ -19,13 +19,31 @@ class AdminController {
     async products(req, res) {
         const result = await AdminModel.get_table(req, res);
 
-        res.render("../views/admin/products/index", {products: result});
+        res.render("../views/admin/products/index", {products: result, page: 1});
+    }
+
+    async products_page(req, res) {
+        const result = await AdminModel.get_table(req, res);
+
+        res.render("../views/admin/products/index", {products: result, page: req.params.id});
     }
 
     async product_edit(req, res) {
         const result = await AdminModel.get_product(req, res);
 
         res.render("../views/admin/products/edit", {product: result});
+    }
+
+    async products_remove_confirm(req, res) {
+        const result = await AdminModel.get_product(req, res);
+
+        res.render("../views/partials/delete", {product: result});
+    }
+
+    async products_remove(req, res) {
+        await AdminModel.delete_product(req, res);
+
+        res.redirect("/admin/products");
     }
 
     product_new(req, res) {
@@ -42,7 +60,7 @@ class AdminController {
             res.json(true);
             console.log('sent to db');
         }else{
-            res.render("../views/partials/error.ejs", {errors: req.session.error});
+            res.render("../views/partials/error", {errors: req.session.error});
         }    
     }
 
@@ -68,7 +86,7 @@ class AdminController {
             }
             req.session.image_files = files.file;
 
-            res.render("../views/partials/image_preview.ejs", {files:req.session.image_files});
+            res.render("../views/partials/image_preview", {files:req.session.image_files});
         });
     }
 
@@ -81,7 +99,7 @@ class AdminController {
             if(req.session.image_files[i].name === req.params.id){
                 req.session.image_files.splice(i,1);
 
-                res.render("../views/partials/image_preview.ejs", {files:req.session.image_files});
+                res.render("../views/partials/image_preview", {files:req.session.image_files});
             }
         }
     }

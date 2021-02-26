@@ -1,20 +1,20 @@
-<form action="#" method="post" class="delete">
+<form action="/admin/products/delete/<%= product[0].id %>" method="post" class="delete">
     <table>
         <tr>
             <td>ID:</td>
-            <td>3</td>
+            <td><%= product[0].id %></td>
         </tr>
         <tr>
             <td>Name:</td>
-            <td>T-Shirt</td>
+            <td><%= product[0].name %></td>
         </tr>
         <tr>
             <td>Inventory Amt:</td>
-            <td>300</td>
+            <td><%= product[0].inventory %></td>
         </tr>
         <tr>
-            <td>Quantity Sold:</td>
-            <td>20</td>
+            <td>Category:</td>
+            <td><%= product[0].category %></td>
         </tr>
         <tr>
             <td>
@@ -28,8 +28,10 @@
     </table>
     <div>
         <label for="delete">Confirm Delete:</label>
-        <input class="btn btn-danger"type="submit" value="DELETE">
-        <input class="btn btn-warning cancel" type="submit" value="Cancel">
+        <input class="btn btn-danger" type="submit" value="DELETE">
+        <input class="btn btn-warning cancel" value="Cancel">
     </div>
 
 </form>
+
+<script src="../../public/jquery/admin_products.js"></script>

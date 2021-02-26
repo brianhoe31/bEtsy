@@ -24,7 +24,7 @@
              </tr>
          </thead>
          <tbody>
-             <% for(var i=0; i<10; i++){ %>
+             <% for(var i=(page - 1) * 10; i<10 * page; i++){ %>
                  <tr>
                      <td><img src="https://images.unsplash.com/photo-1589359096049-85292b87bf51?ixid=MXwxMjA3fDB8MHxzZWFyY2h8Nnx8Y2FzaG1lcmUlMjBzd2VhdGVyfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60"
                              alt=""></td>
@@ -40,21 +40,24 @@
                      <td>
                          <%= products[i].inventory %>
                      </td>
-                     <td><a href="/admin/products/edit/<%= products[i].id %>">EDIT</a> | <a href="#" class="delete_btn">DELETE</a></td>
+                     <td><a href="/admin/products/edit/<%= products[i].id %>">EDIT</a> | <a href="/admin/products/delete/<%= products[i].id %>" class="delete_btn">DELETE</a></td>
                  </tr>
                  <% } %>
          </tbody>
      </table>
      <div> 
-         <p>Page: 
-             <% for(var i=1; i<(products.length)/10; i++){ %>
-                 <a href=""><%= i %></a>|
+         <p>Page: <a href="/admin/products/<%= 1 %>"><%= 1 %></a>
+             <% for(var i=2; i<(products.length)/10; i++){ %>
+                 |<a href="/admin/products/<%= i %>"><%= i %></a>
              <% } %> 
      
          </p>
      </div>
     </div>
-    <%- include("../../partials/delete") %>
+    <div class="delete_form">
+      <!-- confirm delete form partial goes here -->
+    </div>
+    
 </div>
 
 <script src="../../public/jquery/admin_products.js"></script>

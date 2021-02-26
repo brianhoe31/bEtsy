@@ -46,6 +46,13 @@ class AdminModel extends Model {
         const result = await this.executeQuery(query, value);
         return result;
     }
+
+    async delete_product(req, res){
+        let value = req.params.id;
+        let query = "DELETE FROM products WHERE id = ?";
+
+        await this.executeQuery(query, value);
+    }
 }
 
 const adminModel = new AdminModel;
