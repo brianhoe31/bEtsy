@@ -47,20 +47,21 @@ class AdminController {
     }
 
     product_new(req, res) {
-        res.render("../views/admin/products/new");
+        res.render("../views/admin/products/new", {error: req.session.error});
     }
 
     async create_new_product(req, res) {
         AdminModel.validate_form(req, res);
 
         if(req.session.error.length === 0){
-            let data = await AdminModel.add_product(req, res);
-            console.log('sql data is : ', data);
+            await AdminModel.add_product(req, res);
 
-            res.json(true);
-            console.log('sent to db');
+            await AdminModel.add_product_images(req, res);
+            //delete files in the images folder 
+
+            res.redirect("/admin/products");
         }else{
-            res.render("../views/partials/error", {errors: req.session.error});
+            res.redirect("/admin/products/new");
         }    
     }
 

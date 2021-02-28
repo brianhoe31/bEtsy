@@ -50,7 +50,7 @@ AdminRoutes.post("/products/delete/:id", function(req, res){
     AdminController.products_remove(req, res);
 })
 
-AdminRoutes.get("/products/:id", function(req, res){
+AdminRoutes.get("/products/page=:id", function(req, res){
     AdminController.products_page(req, res);
 })
 

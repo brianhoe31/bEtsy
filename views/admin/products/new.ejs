@@ -49,7 +49,11 @@
                 </div>
 
                 <div class="error">
-                    <!-- error partials goes here -->
+                    <% if(error !== undefined){ %>
+                        <% error.forEach((err) => { %>
+                            <p class="error"><%= err %></p>
+                        <% }) %>
+                    <% } %>
                 </div>
                 
                 <button form="main_form" class="btn btn-primary" type="submit">Add Product</button>
@@ -59,3 +63,4 @@
 
     <script src="../../public/jquery/admin_products.js"></script>
     <%- include("../../partials/footer") %>
+    

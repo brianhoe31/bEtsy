@@ -7,7 +7,7 @@ class AdminModel extends Model {
     }
 
     async get_table(req, res) {
-        let query = "SELECT products.id AS id, products.name AS product, price, description, inventory, categories.name AS category FROM products LEFT JOIN categories ON products.category_id = categories.id";
+        let query = "SELECT products.id AS id, products.name AS product, price, description, inventory, images.name AS image, categories.name AS category FROM products LEFT JOIN images ON images.id = (SELECT images.id FROM images WHERE products.id = images.product_id ORDER BY images.id LIMIT 1) LEFT JOIN categories ON products.category_id = categories.id;";
 
         const result = await this.executeQuery(query);
         return result;
@@ -41,10 +41,32 @@ class AdminModel extends Model {
 
     async get_product(req, res){
         let value = req.params.id;
-        let query = "SELECT * FROM products WHERE id= ?";
+        let query = "SELECT * FROM products LEFT JOIN images ON products.id = images.product_id WHERE products.id = ?";
 
         const result = await this.executeQuery(query, value);
         return result;
+    }
+
+    async get_new_product_id(req, res){
+        let query = "SELECT * FROM products ORDER BY id DESC LIMIT 1";
+
+        const result = await this.executeQuery(query);
+        return result;
+    }
+
+    async add_product_images(req, res){
+        const data = await this.get_new_product_id();
+        const id = data[0].id;
+
+        for(var i=0; i< req.session.image_files.length; i++){
+            const name = req.session.image_files[i].name;
+            const values = [id, name];
+
+            let query = "INSERT INTO images (product_id, name, created_at, updated_at) VALUES (?, ?, NOW(), NOW())";
+
+            await this.executeQuery(query, values);
+        }
+        req.session.image_files = [];
     }
 
     async delete_product(req, res){

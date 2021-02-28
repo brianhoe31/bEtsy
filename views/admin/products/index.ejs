@@ -24,12 +24,13 @@
              </tr>
          </thead>
          <tbody>
-             <% for(var i=(page - 1) * 10; i<10 * page; i++){ %>
+
+             <% for(let i= (page - 1) * 10; i< page * 10; i++){ %>
                  <tr>
-                     <td><img src="https://images.unsplash.com/photo-1589359096049-85292b87bf51?ixid=MXwxMjA3fDB8MHxzZWFyY2h8Nnx8Y2FzaG1lcmUlMjBzd2VhdGVyfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60"
+                     <td><img src="../../../public/images/<%= products[i].image %>"
                              alt=""></td>
                      <td>
-                         <%= products[i].id %>
+                        <%= products[i].id %>
                      </td>
                      <td>
                          <%= products[i].product %>
@@ -46,9 +47,9 @@
          </tbody>
      </table>
      <div> 
-         <p>Page: <a href="/admin/products/<%= 1 %>"><%= 1 %></a>
-             <% for(var i=2; i<(products.length)/10; i++){ %>
-                 |<a href="/admin/products/<%= i %>"><%= i %></a>
+         <p>Page: <a href="/admin/products/page=<%= 1 %>"><%= 1 %></a>
+             <% for(var i=2; i<Math.ceil((products.length)/10)+1; i++){ %>
+                 |<a href="/admin/products/page=<%= i %>"><%= i %></a>
              <% } %> 
      
          </p>
@@ -62,3 +63,4 @@
 
 <script src="../../public/jquery/admin_products.js"></script>
 <%- include("../../partials/footer") %>
+

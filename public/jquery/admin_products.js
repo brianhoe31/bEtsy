@@ -66,19 +66,4 @@ $(document).ready(function () {
         })
     })
 
-    //submit new product form 
-    $("form#main_form").submit(function(e){
-        e.preventDefault()
-
-        $.ajax({
-          url: '/admin/products/new',
-          type:'POST',
-          data: $("form#main_form").serialize()
-        }).done(returndata => {
-            console.log(returndata);
-            $(".new_product .error").html(returndata);
-            // window.location.href="/admin/products/";
-        })
-    })
-
 });
