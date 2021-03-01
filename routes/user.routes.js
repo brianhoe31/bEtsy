@@ -11,7 +11,11 @@ UserRoutes.get("/products", function(req, res){
     UserController.products(req, res);
 })
 
-UserRoutes.get("/products/:id", function(req, res){
+UserRoutes.get("/products/:category", function(req, res){
+    UserController.products_show_category(req, res);
+})
+
+UserRoutes.get("/products/:category/:id", function(req, res){
     UserController.product_show(req, res);
 })
 
