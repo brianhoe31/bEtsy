@@ -71,9 +71,11 @@ class AdminModel extends Model {
 
     async delete_product(req, res){
         let value = req.params.id;
-        let query = "DELETE FROM products WHERE id = ?";
-
-        await this.executeQuery(query, value);
+        let query1 = "DELETE FROM images WHERE product_id = ?"
+        let query2 = "DELETE FROM products WHERE id = ?; ";
+        
+        await this.executeQuery(query1, value);
+        await this.executeQuery(query2, value);
     }
 }
 

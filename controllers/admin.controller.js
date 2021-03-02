@@ -91,10 +91,6 @@ class AdminController {
         });
     }
 
-    async save_images(req, res) {
-        
-    }
-
     products_remove_img_queue(req, res){
         for(var i=0; i< req.session.image_files.length; i++){
             if(req.session.image_files[i].name === req.params.id){

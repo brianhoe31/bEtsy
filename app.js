@@ -21,6 +21,7 @@ DOCU: Setup the express app settings
 Specify the static path, view engine used and etc
 */
 App.use(Session(session_setting));
+App.use(CookieParser());
 App.set("view engine", "ejs");
 App.set("views", __dirname + "/views");
 App.use("/public", Express.static(__dirname + "/public"));

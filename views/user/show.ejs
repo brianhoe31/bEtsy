@@ -5,39 +5,28 @@
             <div class="col-4">
                 <div class="row">
                     <img class="main_thumbnail"
-                        src="https://s7d5.scene7.com/is/image/UrbanOutfitters/59515254_000_b?$xlarge$=&fit=constrain&fmt=webp&qlt=80&wid=1314"
+                        src="../../public/images/<%= product[0].image %>"
                         alt="">
                 </div>
+
                 <div class="row preview_thumbnail">
-                    <div class="col-3">
-                        <img src="https://s7d5.scene7.com/is/image/UrbanOutfitters/59515254_000_b?$xlarge$=&fit=constrain&fmt=webp&qlt=80&wid=1314"
-                            alt="" class="selected">
-                    </div>
-                    <div class="col-3">
-                        <img src="https://s7d5.scene7.com/is/image/UrbanOutfitters/59515254_000_e?$xlarge$=&fit=constrain&fmt=webp&qlt=80&wid=1314"
-                            alt="">
-                    </div>
-                    <div class="col-3">
-                        <img src="https://s7d5.scene7.com/is/image/UrbanOutfitters/59515254_000_f?$xlarge$=&fit=constrain&fmt=webp&qlt=80&wid=1314"
-                            alt="">
-                    </div>
-                    <div class="col-3">
-                        <img src="https://s7d5.scene7.com/is/image/UrbanOutfitters/59515254_000_g?$xlarge$=&fit=constrain&fmt=webp&qlt=80&wid=1314"
-                            alt="">
-                    </div>
+                    <% for(var i=0; i< product.length; i++){ %>
+                        <div class="col-3">
+                            <img src="../../public/images/<%= product[i].image %>"
+                                alt="" class="selected">
+                        </div>
+                    <% } %>
                 </div>
             </div>
             <div class="col-6 product_info">
-                <h1>Product Name</h1>
-                <h2>$9.99</h2>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque vitae labore, nam perferendis in
-                    voluptatibus? Minima provident iure a asperiores suscipit facere et possimus doloremque, voluptatum
-                    ea rem voluptates voluptatem.</p>
-                <form action="#" method="post">
+                <h1><%= product[0].product %></h1>
+                <h2>$<%= product[0].price %></h2>
+                <p><%= product[0].description %></p>
+                <form action="/products/shop/<%= product[0].id %>" method="post">
                     <div class="form-group">
                         <label for="quantity">Qauntity:</label>
                         <select class="form-select quantity" name="quantity" aria-label="Default select example">
-                            <option selected>--</option>
+                            <option selected value="0">--</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
@@ -47,6 +36,25 @@
                     </div>
                     <button type="submit" class="btn btn-dark">Add to Bag</button>
                 </form>
+                <div class="details">
+                    <h3>Details</h3>
+                    <p>Product Sku: 60949914; Color Code: 023</p>
+                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quae modi dignissimos in, exercitationem temporibus animi ut aspernatur debitis tenetur fugiat possimus a magni eum aut? Eos, in. Aut, in vel!</p>
+                    <h4>Content + Care</h4>
+                    <p>-100% Rayon</p>
+                    <p>-Machine wash</p>
+                </div>
+                <hr>
+                <div class="details">
+                    <h3>Shipping + Returns</h3>
+                    <h4>Shipping</h4>
+                    <p>Rush Shipping may not be available for all orders depending on fulfillment location.</p>
+                    <p>Shipping outside of the US? See our international shipping rates.</p>
+                    <p></p>
+                    <h4>Returns</h4>
+                    <p>Free pre-paid returns and exchanges for orders shipped to the US. Get refunded faster with easy online returns and print a FREE pre-paid return SmartLabel® online! Return or exchange any unused or defective merchandise by mail or at one of our US or Canada store locations. Made to order items cannot be canceled, exchanged or returned.</p>
+                </div>
+
             </div>
         </div>
         <p>Often Viewed With</p>

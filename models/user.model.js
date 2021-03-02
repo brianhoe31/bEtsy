@@ -20,6 +20,13 @@ class UserModel extends Model {
 
         return await this.executeQuery(query);
     }
+
+    async get_product(req, res){
+        const query = "SELECT products.id AS id, products.name AS product, price, description, inventory, images.name AS image, categories.name AS category FROM products LEFT JOIN images ON products.id = images.product_id LEFT JOIN categories ON products.category_id = categories.id WHERE products.id = ?";
+        const value = req.params.id;
+
+        return await this.executeQuery(query, value);
+    }
 }
 
 const userModel = new UserModel;
