@@ -30,6 +30,8 @@ UserRoutes.get("/cart", function(req, res){
     UserController.cart(req, res);
 })
 
-
+UserRoutes.get("/cart_total", function(req, res){
+    UserController.get_cart_total(req, res);
+})
 
 module.exports = UserRoutes;

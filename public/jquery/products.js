@@ -9,18 +9,15 @@ $(document).ready(function () {
         $(".main_thumbnail").attr('src', img);
     })
 
-    // $(".product_info button").on("click", function (e) {
-    //     e.preventDefault();
+    //get the quantity of item added to cart and update cart & cart icon
+    $(".product_info form").submit(function (e) {
+        e.preventDefault();
 
-    //     let value = parseInt($("select").val());
+        const quantity = $(this).find( "select[name='quantity']" ).val();
 
-    //     let cart_val = parseInt($("span.cart").html());
-        
-    //     cart_val += value;
-    //     $("span.cart").html(cart_val);
-
-    //     //change the button to be greyed out and say 'added to cart' for 5 sec
-
-    // })
+        $.post($(this)[0].href, {quantity: quantity}).done(function(total){
+            $(".cart").html(total.cart_total);
+        })
+    })
 
 });

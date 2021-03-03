@@ -29,6 +29,15 @@ class UserController {
     async product_show(req, res) {
         const result = await UserModel.get_product(req, res);
 
+        if(req.cookies.cart !== undefined){
+            let cart_total = 0;
+            for(var i=0; i<req.cookies.cart.items.length; i++){
+                cart_total += req.cookies.cart.items[i].quantity;
+            }
+            res.render("../views/user/show", { product: result, cart: cart_total });
+            return;    
+        }
+
         res.render("../views/user/show", { product: result });
     }
 
@@ -37,34 +46,49 @@ class UserController {
     }
 
     //when 'add product' is hit, updates shopping cart in the cookie
-    async product_add_cart(req, res){
-        // const id = req.params.id;
-        // const qty = parseInt(req.body.quantity);
+    product_add_cart(req, res){
+        const id = req.params.id;
+        const qty = parseInt(req.body.quantity);
 
-        res.cookie('test', 'test');
-
+        //if nothing in the cart, create new cart cookie
         if(req.cookies.cart === undefined){
-            console.log('run');
-            res.cookie('cart', {items: 1});
-            console.log('this ran ', document.cookie);
+            res.cookie('cart', {items: [{id: id, quantity: qty}]});
+
+
+            res.json({cart_total: this.cart_total(req, res)})
+            return;
         }else{
+            //check if this item exists in the cart, if it does, add to existing item qty
             for(var i=0; i<req.cookies.cart.items.length; i++){
                 if(req.cookies.cart.items[i].id === id){
                     req.cookies.cart.items[i].quantity += qty;
 
-                    await this.product_show(req, res);
-                    // next();
+                    res.json({cart_total: this.cart_total(req, res)})
+                    return;
                 }
             }
         }
         
+        //else add to existing list of items in cookie
         let items = req.cookies.cart.items;
         items.push({id: id, quantity: qty});
 
         res.cookie('cart', {items: items});
+        res.json({cart_total: this.cart_total(req, res)})
+    }
 
-        
-        await this.product_show(req, res);
+    //helper function to calculate the cart total
+    cart_total(req, res){
+        let cart_total = 0;
+            for(var i=0; i<req.cookies.cart.items.length; i++){
+                cart_total += req.cookies.cart.items[i].quantity;
+            }
+        return cart_total;
+    }
+
+    //cart item counter in header.  Updates for every page
+    get_cart_total(req, res){
+        res.json({cart_total: this.cart_total(req, res)});
     }
 
 }
