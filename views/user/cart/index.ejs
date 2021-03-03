@@ -14,33 +14,21 @@
                   </tr>
                </thead>
                <tbody>
-                  <tr>
-                     <td><img src="https://www.idakoos.net/H0783TC2BN0000019130404040005YG0000A1A,state-nickname-california.jpg" alt="cal t-shirt"></td>
-                     <td>CAL T-SHIRT</td>
-                     <td>$9.99</td>
-                     <td>5</td>
-                     <td>$45.94</td>
-                  </tr>
-                  <tr>
-                     <td><img src="https://cdn.fs.grailed.com/api/file/bSM9ECF4TrqswGEOzMlb" alt="bahama shirt"></td>
-                     <td>BAHAMA PANTS</td>
-                     <td>$20.99</td>
-                     <td>2</td>
-                     <td>$40.98</td>
-                  </tr>
-                  <tr>
-                     <td><img src="https://images.unsplash.com/photo-1589359096049-85292b87bf51?ixid=MXwxMjA3fDB8MHxzZWFyY2h8Nnx8Y2FzaG1lcmUlMjBzd2VhdGVyfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60" alt="cashmere sweater"></td>
-                     <td>CASHMERE SWEATER</td>
-                     <td>$99.99</td>
-                     <td>1</td>
-                     <td>$99.99</td>
-                  </tr>
+                  <% for(let i=0; i<cart.length; i++){ %>
+                     <tr>
+                        <td><img src="../../../public/images/<%= cart[i].item[0].image %>" alt="cal t-shirt"></td>
+                        <td><%= cart[i].item[0].product %></td>
+                        <td>$<%= cart[i].item[0].price %></td>
+                        <td><%= cart[i].quantity %></td>
+                        <td>$<%= cart[i].item[0].price * cart[i].quantity %></td>
+                     </tr>
+                  <% } %>
                </tbody>
             </table>
          </div>
          <div class="row total">
-            <p><span>SHIPPING: </span> $10.00</p>
-            <p><span>TOTAL: </span> $140.97</p>
+            <p><span>SHIPPING: </span> $<%= parseFloat(total * .1).toFixed(2) %></p>
+            <p><span>TOTAL: </span> $<%= parseFloat(total * 1.1).toFixed(2) %></p>
          </div>
          <div class="row continue_shopping">
             <button id="button-addon1" type="button" class="btn btn-warning">Continue Shopping</button>
