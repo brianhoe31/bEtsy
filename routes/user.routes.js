@@ -30,6 +30,12 @@ UserRoutes.get("/cart", function(req, res){
     UserController.cart(req, res);
 })
 
+UserRoutes.post("/cart_checkout", function(req, res){
+    UserController.cart_checkout(req, res);
+})
+
+
+
 UserRoutes.get("/cart_total", function(req, res){
     UserController.get_cart_total(req, res);
 })

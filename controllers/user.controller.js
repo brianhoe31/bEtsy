@@ -52,7 +52,6 @@ class UserController {
             }
         }
 
-
         res.render("../views/user/cart/index",{cart: cart, total:total});
     }
 
@@ -105,6 +104,9 @@ class UserController {
         res.json({ cart_total: this.cart_total(req, res) });
     }
 
+    cart_checkout(req, res) {
+        
+    }
 }
 
 const userController = new UserController;
