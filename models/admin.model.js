@@ -39,6 +39,21 @@ class AdminModel extends Model {
         return result;
     }
 
+    async get_orders(req, res){
+        const query = "SELECT orders.id, orders.status_id, orders.shipping_cost, orders.total_cost, customers.first_name, orders.created_at FROM orders LEFT JOIN customers ON orders.user_id = customers.id";
+
+        const result = await this.executeQuery(query);
+        return result;
+    }
+
+    async get_order(req, res){
+        const query = "SELECT orders.id AS id, orders.status_id AS status, orders.shipping_cost AS shipping, orders.total_cost as total, products.id AS item_id, order_products.quantity AS quantity, products.name AS item_name, products.price AS price, customers.first_name AS first_name, customers.last_name AS last_name, customers.street AS address, customers.city AS city, customers. state AS state, customers.zipcode AS zipcode FROM orders LEFT JOIN order_products ON orders.id = order_products.order_id LEFT JOIN products ON order_products.product_id = products.id LEFT JOIN customers ON orders.user_id = customers.id WHERE orders.id = ?";
+        const value = req.params.id;
+
+        const result = await this.executeQuery(query, value);
+        return result;
+    }
+
     async get_product(req, res){
         let value = req.params.id;
         let query = "SELECT * FROM products LEFT JOIN images ON products.id = images.product_id WHERE products.id = ?";

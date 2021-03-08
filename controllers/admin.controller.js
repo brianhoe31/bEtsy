@@ -8,12 +8,16 @@ class AdminController {
         res.render("../views/admin/index");
     }
 
-    orders(req, res) {
-        res.render("../views/admin/orders/index");
+    async orders(req, res) {
+        const result = await AdminModel.get_orders(req, res);
+
+        res.render("../views/admin/orders/index", {orders: result});
     }
 
-    orders_show(req, res) {
-        res.render("../views/admin/orders/show");
+    async orders_show(req, res) {
+        const result = await AdminModel.get_order(req, res);
+
+        res.render("../views/admin/orders/show", {order: result});
     }
 
     async products(req, res) {

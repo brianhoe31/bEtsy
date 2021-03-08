@@ -10,7 +10,7 @@ AdminRoutes.get("/orders", function(req, res){
     AdminController.orders(req, res);
 })
 
-AdminRoutes.get("/orders/show", function(req, res){
+AdminRoutes.get("/orders/:id", function(req, res){
     AdminController.orders_show(req, res);
 })
 

@@ -1,126 +1,142 @@
 <%- include("../../partials/adminheader") %>
 
-<div class="container show_order">
-    <div class="row">
-        <h1>Order ID 3 Details</h1>
-        <table class="table-striped">
-            <thead>
-               <tr>
-                  <th scope="col">ITEM ID</th>
-                  <th class="col">PRODUCT</th>
-                  <th scope="col">PRICE</th>
-                  <th scope="col">QTY</th>
-                  <th scope="col">TOTAL</th>
-               </tr>
-            </thead>
-            <tbody>
-               <tr>
-                  <td>24</td>
-                  <td>T-SHIRT</td>
-                  <td>$9.99</td>
-                  <td>5</td>
-                  <td>$45.95</td>
-               </tr>
-               <tr>
-                  <td>24</td>
-                  <td>T-SHIRT</td>
-                  <td>$9.99</td>
-                  <td>5</td>
-                  <td>$45.95</td>
-               </tr>
-               <tr>
-                  <td>24</td>
-                  <td>T-SHIRT</td>
-                  <td>$9.99</td>
-                  <td>5</td>
-                  <td>$45.95</td>
-               </tr>
-            </tbody>
-         </table>
-    </div>
-    <div class="row justify-content-around ">
-        <div class="col-4 details">
-            <div>
-                <h3>Customer Shipping Info</h3>
-                <table>
+    <div class="container show_order">
+        <div class="row">
+            <h1>Order ID <%= order[0].id %> Details</h1>
+            <table class="table-striped">
+                <thead>
                     <tr>
-                        <td>NAME:</td>
-                        <td>Joey</td>
+                        <th scope="col">ITEM ID</th>
+                        <th class="col">PRODUCT</th>
+                        <th scope="col">PRICE</th>
+                        <th scope="col">QTY</th>
+                        <th scope="col">TOTAL</th>
                     </tr>
-                    <tr>
-                        <td>ADDRESS:</td>
-                        <td>123 Pine Rd.</td>
-                    </tr>
-                    <tr>
-                        <td>CITY:</td>
-                        <td>Irvine</td>
-                    </tr>
-                    <tr>
-                        <td>STATE:</td>
-                        <td>CA</td>
-                    </tr>
-                    <tr>
-                        <td>ZIP:</td>
-                        <td>92657</td>
-                    </tr>
-                </table>
-                <h3>Customer Billing Info</h3>
-                <table>
-                    <tr>
-                        <td>NAME:</td>
-                        <td>Joey</td>
-                    </tr>
-                    <tr>
-                        <td>ADDRESS:</td>
-                        <td>123 Pine Rd.</td>
-                    </tr>
-                    <tr>
-                        <td>CITY:</td>
-                        <td>Irvine</td>
-                    </tr>
-                    <tr>
-                        <td>STATE:</td>
-                        <td>CA</td>
-                    </tr>
-                    <tr>
-                        <td>ZIP:</td>
-                        <td>92657</td>
-                    </tr>
-                </table>
+                </thead>
+                <tbody>
+                    <% for(var i=0; i<order.length; i++){ %>
+                        <tr>
+                            <td>
+                                <%= order[i].item_id %>
+                            </td>
+                            <td>
+                                <%= order[i].item_name %>
+                            </td>
+                            <td>$<%= order[i].price %>
+                            </td>
+                            <td>
+                                <%= order[i].quantity %>
+                            </td>
+                            <td>$<%= order[i].price * order[i].quantity %>
+                            </td>
+                        </tr>
+                        <% } %>
+                </tbody>
+            </table>
+        </div>
+        <div class="row justify-content-around ">
+            <div class="col-4 details">
+                <div>
+                    <h3>Customer Shipping Info</h3>
+                    <table>
+                        <tr>
+                            <td>NAME:</td>
+                            <td>
+                                <%= order[0].first_name + ' ' + order[0].last_name %>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>ADDRESS:</td>
+                            <td>
+                                <%= order[0].address %>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>CITY:</td>
+                            <td>
+                                <%= order[0].city %>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>STATE:</td>
+                            <td>
+                                <%= order[0].state %>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>ZIP:</td>
+                            <td>
+                                <%= order[0].zipcode %>
+                            </td>
+                        </tr>
+                    </table>
+                    <h3>Customer Billing Info</h3>
+                    <table>
+                        <tr>
+                            <td>NAME:</td>
+                            <td>
+                                <%= order[0].first_name + ' ' + order[0].last_name %>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>ADDRESS:</td>
+                            <td>
+                                <%= order[0].address %>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>CITY:</td>
+                            <td>
+                                <%= order[0].city %>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>STATE:</td>
+                            <td>
+                                <%= order[0].state %>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>ZIP:</td>
+                            <td>
+                                <%= order[0].zipcode %>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="col-4 ">
+                <div class="row details">
+                    <table>
+                        <tr>
+                            <td>SUBTOTAL:</td>
+                            <td>$<%= parseFloat(order[0].total - order[0].shipping).toFixed(2) %></td>
+                        </tr>
+                        <tr>
+                            <td>SHIPPING:</td>
+                            <td>$<%= order[0].shipping %></td>
+                        </tr>
+                        <tr>
+                            <td>TOTAL:</td>
+                            <td><span>$<%= order[0].total %></span></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="row details">
+                    <table>
+                        <tr>
+                            <td>ORDER ID:</td>
+                            <td><%= order[0].id %></td>
+                        </tr>
+                        <tr>
+                            <td>STATUS:</td>
+                            <td>PROCESSING</td>
+                        </tr>
+                    </table>
+                </div>
             </div>
         </div>
-        <div class="col-4 ">
-            <div class="row details">
-                <table>
-                    <tr>
-                        <td>SUBTOTAL:</td>
-                        <td>$90.93</td>
-                    </tr>
-                    <tr>
-                        <td>SHIPPING:</td>
-                        <td>$10.00</td>
-                    </tr>
-                    <tr>
-                        <td>TOTAL:</td>
-                        <td><span>$30.98</span></td>
-                    </tr>
-                </table>
-            </div>
-            <div class="row details">
-                <table>
-                    <tr>
-                        <td>ORDER ID:</td>
-                        <td>3</td>
-                    </tr>
-                    <tr>
-                        <td>STATUS:</td>
-                        <td>SHIPPED</td>
-                    </tr>
-                </table>
-            </div>
-        </div>
+
     </div>
 
-</div>
-
-<%- include("../../partials/footer") %>
+    <%- include("../../partials/footer") %>

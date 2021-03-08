@@ -30,11 +30,7 @@ class UserController {
         const result = await UserModel.get_product(req, res);
 
         if (req.cookies.cart !== undefined) {
-            let cart_total = 0;
-            for (var i = 0; i < req.cookies.cart.items.length; i++) {
-                cart_total += req.cookies.cart.items[i].quantity;
-            }
-            res.render("../views/user/show", { product: result, cart: cart_total });
+            res.render("../views/user/show", { product: result, cart: UserModel.cart_total });
             return;
         }
 
@@ -65,7 +61,7 @@ class UserController {
             res.cookie('cart', { items: [{ id: id, quantity: qty }] });
 
 
-            res.json({ cart_total: this.cart_total(req, res) })
+            res.json({ cart_total: UserModel.cart_total(req, res) })
             return;
         } else {
             //check if this item exists in the cart, if it does, add to existing item qty
@@ -73,7 +69,7 @@ class UserController {
                 if (req.cookies.cart.items[i].id === id) {
                     req.cookies.cart.items[i].quantity += qty;
 
-                    res.json({ cart_total: this.cart_total(req, res) })
+                    res.json({ cart_total: UserModel.cart_total(req, res) })
                     return;
                 }
             }
@@ -84,28 +80,22 @@ class UserController {
         items.push({ id: id, quantity: qty });
 
         res.cookie('cart', { items: items });
-        res.json({ cart_total: this.cart_total(req, res) })
-    }
-
-    //helper function to calculate the cart total
-    cart_total(req, res) {
-        let cart_total = 0;
-        if (req.cookies.cart !== undefined) {
-            for (var i = 0; i < req.cookies.cart.items.length; i++) {
-                cart_total += req.cookies.cart.items[i].quantity;
-            }
-        }
-
-        return cart_total;
+        res.json({ cart_total: UserModel.cart_total(req, res) })
     }
 
     //cart item counter in header.  Updates for every page
     get_cart_total(req, res) {
-        res.json({ cart_total: this.cart_total(req, res) });
+        res.json({ cart_total: UserModel.cart_total(req, res) });
     }
 
-    cart_checkout(req, res) {
-        
+    async cart_checkout(req, res) {
+        //take customer data and add it to the 'customers' table in DB 
+        const data = await UserModel.add_customer(req, res);
+        await UserModel.new_order(req, res);
+        await UserModel.create_order_product(req, res);
+        res.cookie('cart', { items: [] });
+
+        res.render("../views/user/cart/thank_you");
     }
 }
 

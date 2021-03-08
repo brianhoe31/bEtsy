@@ -23,92 +23,30 @@
                       <th scope="col">ORDER ID</th>
                       <th class="col">NAME</th>
                       <th scope="col">DATE</th>
-                      <th scope="col">PRODUCT QTY</th>
+                      <th scope="col">SHIPPING COST</th>
                       <th scope="col">TOTAL</th>
                       <th scope="col">STATUS</th>
                    </tr>
                 </thead>
                 <tbody>
-                   <tr>
-                      <td><a href="/admin/orders/show">3</a></td>
-                      <td>JOEY</td>
-                      <td>2/14/202</td>
-                      <td>5</td>
-                      <td>$45.95</td>
-                      <td>
-                        <div class="form-group">
-                            <select class="form-control" id="sel1">
-                                <option>SHIPPED</option>
-                                <option>CANCELLED</option>
-                                <option>IN PROCESS</option>
-                            </select>
-                        </div>
-                      </td>
-                   </tr>
-                   <tr>
-                      <td>38</td>
-                      <td>JOEY</td>
-                      <td>2/14/202</td>
-                      <td>5</td>
-                      <td>$45.95</td>
-                      <td>
-                        <div class="form-group">
-                            <select class="form-control" id="sel1">
-                                <option>SHIPPED</option>
-                                <option>CANCELLED</option>
-                                <option>IN PROCESS</option>
-                            </select>
-                        </div>
-                      </td>
-                   </tr>
-                   <tr>
-                      <td>48</td>
-                      <td>JOEY</td>
-                      <td>2/14/202</td>
-                      <td>5</td>
-                      <td>$45.95</td>
-                      <td>
-                        <div class="form-group">
-                            <select class="form-control" id="sel1">
-                                <option>IN PROCESS</option>
-                                <option>SHIPPED</option>
-                                <option>CANCELLED</option>
-                            </select>
-                        </div>
-                      </td>
-                   </tr>
-                   <tr>
-                      <td>58</td>
-                      <td>JOEY</td>
-                      <td>2/14/202</td>
-                      <td>5</td>
-                      <td>$45.95</td>
-                      <td>
-                        <div class="form-group">
-                            <select class="form-control" id="sel1" value="--">
-                                <option>IN PROCESS</option>
-                                <option>SHIPPED</option>
-                                <option>CANCELLED</option>
-                            </select>
-                        </div>
-                      </td>
-                   </tr>
-                   <tr>
-                      <td><a href="#">68</a></td>
-                      <td>JOEY</td>
-                      <td>2/14/202</td>
-                      <td>5</td>
-                      <td>$45.95</td>
-                      <td>
-                        <div class="form-group">
-                            <select class="form-control" id="sel1">
-                                <option>IN PROCESS</option>
-                                <option>SHIPPED</option>
-                                <option>CANCELLED</option>
-                            </select>
-                        </div>
-                      </td>
-                   </tr>
+                    <% for(var i=0; i<orders.length; i++){ %>
+                        <tr>
+                            <td><a href="/admin/orders/<%= orders[i].id %>"><%= orders[i].id %></a></td>
+                            <td><%= orders[i].first_name %></td>
+                            <td><%= orders[i].created_at %></td>
+                            <td>$<%= orders[i].shipping_cost %></td>
+                            <td>$<%= orders[i].total_cost %></td>
+                            <td>
+                              <div class="form-group">
+                                  <select class="form-control" id="sel1">
+                                      <option>IN PROCESS</option>
+                                      <option>SHIPPED</option>
+                                      <option>CANCELLED</option>
+                                  </select>
+                              </div>
+                            </td>
+                         </tr>
+                    <% } %>
                 </tbody>
              </table>
         </div>
