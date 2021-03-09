@@ -1,5 +1,6 @@
 <%- include("../partials/adminheader") %>
 
+
 <div class="container">
     <div class="row">
         <div class="col-4 overview">
@@ -19,9 +20,11 @@
             </ul>
         </div>
         <div class="col-8">
-            <img src="https://static.anychart.com/images/gallery/v8/column-charts-100-percent-stacked-column-chart.png" alt="">
+            <canvas id="myChart" width="400" height="300"></canvas>
         </div>
     </div>
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+<script src="../../public/jquery/chart.js"></script>
 <%- include("../partials/footer") %>

@@ -28,6 +28,7 @@ App.use("/public", Express.static(__dirname + "/public"));
 App.use(BodyParser.json({limit: '50mb'}));
 App.use(BodyParser.urlencoded({limit: '50mb', extended: true}));
 
+
 /* Routes */
 const LoginRoutes       = require("./routes/login.routes");
 const AdminRoutes       = require("./routes/admin.routes");

@@ -2,14 +2,17 @@ const UserModel = require("../models/user.model.js");
 
 class UserController {
 
+    //get homepage
     index(req, res) {
         res.render("../views/index");
     }
 
+    //get about page
     about(req, res) {
         res.render("../views/about");
     }
 
+    //get product overview page 
     async products(req, res) {
         //get all products 
         const result = await UserModel.get_all_products();
@@ -18,6 +21,7 @@ class UserController {
         res.render("../views/user/index", { products: result, category: '', filter: category_filter_result });
     }
 
+    //get product overview page specific to a category filter
     async products_show_category(req, res) {
         //get category products
         const category_result = await UserModel.get_all_category(req, res);
@@ -37,6 +41,7 @@ class UserController {
         res.render("../views/user/show", { product: result });
     }
 
+    //calculating the shopping cart quantity in header 
     async cart(req, res) {
         let cart = [];
         let total = 0;
