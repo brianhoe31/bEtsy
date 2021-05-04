@@ -1,6 +1,6 @@
-const mysql         = require('mysql');
+const Mysql         = require('mysql');
 
-const connection    = mysql.createConnection({
+const Connection    = Mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: 'password',
@@ -8,8 +8,8 @@ const connection    = mysql.createConnection({
     port: 3306
 })
 
-connection.connect(function(err) {
+Connection.connect(function(err) {
     if (err) throw err;
 });
 
-module.exports = connection;
+module.exports = Connection;

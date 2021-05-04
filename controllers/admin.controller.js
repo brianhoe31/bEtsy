@@ -1,5 +1,5 @@
 const AdminModel = require("../models/admin.model.js");
-const formidable = require('formidable');
+const Formidable = require('formidable');
 
 class AdminController {
 
@@ -9,58 +9,58 @@ class AdminController {
     }
 
     async orders(req, res) {
-        const result = await AdminModel.get_orders(req, res);
+        const result = await AdminModel.getOrders(req, res);
 
         res.render("../views/admin/orders/index", {orders: result});
     }
 
-    async orders_show(req, res) {
-        const result = await AdminModel.get_order(req, res);
+    async ordersShow(req, res) {
+        const result = await AdminModel.getOrder(req, res);
 
         res.render("../views/admin/orders/show", {order: result});
     }
 
     async products(req, res) {
-        const result = await AdminModel.get_table(req, res);
+        const result = await AdminModel.getTable(req, res);
 
         res.render("../views/admin/products/index", {products: result, page: 1});
     }
 
-    async products_page(req, res) {
-        const result = await AdminModel.get_table(req, res);
+    async productsPage(req, res) {
+        const result = await AdminModel.getTable(req, res);
 
         res.render("../views/admin/products/index", {products: result, page: req.params.id});
     }
 
-    async product_edit(req, res) {
-        const result = await AdminModel.get_product(req, res);
+    async productEdit(req, res) {
+        const result = await AdminModel.getProduct(req, res);
 
         res.render("../views/admin/products/edit", {product: result});
     }
 
-    async products_remove_confirm(req, res) {
-        const result = await AdminModel.get_product(req, res);
+    async productsRemoveConfirm(req, res) {
+        const result = await AdminModel.getProduct(req, res);
 
         res.render("../views/partials/delete", {product: result});
     }
 
-    async products_remove(req, res) {
-        await AdminModel.delete_product(req, res);
+    async productsRemove(req, res) {
+        await AdminModel.deleteProduct(req, res);
 
         res.redirect("/admin/products");
     }
 
-    product_new(req, res) {
+    productNew(req, res) {
         res.render("../views/admin/products/new", {error: req.session.error});
     }
 
-    async create_new_product(req, res) {
-        AdminModel.validate_form(req, res);
+    async createNewProduct(req, res) {
+        AdminModel.validateForm(req, res);
 
         if(req.session.error.length === 0){
-            await AdminModel.add_product(req, res);
+            await AdminModel.addProduct(req, res);
 
-            await AdminModel.add_product_images(req, res);
+            await AdminModel.addProductImages(req, res);
             //delete files in the images folder 
 
             res.redirect("/admin/products");
@@ -69,12 +69,12 @@ class AdminController {
         }    
     }
 
-    product_new_category(req, res) {
+    productNewCategory(req, res) {
         console.log(req.body);
     }
 
-    products_new_images(req, res) {
-        const form = formidable({ multiples: true });
+    productsNewImages(req, res) {
+        const form = Formidable({ multiples: true });
 
         form.on('fileBegin', function (name, files) {
             files.path = process.cwd() + '/public/images/' + files.name;
@@ -95,7 +95,7 @@ class AdminController {
         });
     }
 
-    products_remove_img_queue(req, res){
+    productsRemoveImgQueue(req, res){
         for(var i=0; i< req.session.image_files.length; i++){
             if(req.session.image_files[i].name === req.params.id){
                 req.session.image_files.splice(i,1);

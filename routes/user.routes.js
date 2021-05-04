@@ -15,15 +15,15 @@ UserRoutes.get("/about", function(req, res){
 })
 
 UserRoutes.get("/products/:category", function(req, res){
-    UserController.products_show_category(req, res);
+    UserController.productsShowCategory(req, res);
 })
 
 UserRoutes.get("/products/shop/:id", function(req, res){
-    UserController.product_show(req, res);
+    UserController.productShow(req, res);
 })
 
 UserRoutes.post("/products/shop/:id", function(req, res){
-    UserController.product_add_cart(req, res);
+    UserController.productAddCart(req, res);
 })
 
 UserRoutes.get("/cart", function(req, res){
@@ -31,13 +31,11 @@ UserRoutes.get("/cart", function(req, res){
 })
 
 UserRoutes.post("/cart_checkout", function(req, res){
-    UserController.cart_checkout(req, res);
+    UserController.cartCheckout(req, res);
 })
 
-
-
 UserRoutes.get("/cart_total", function(req, res){
-    UserController.get_cart_total(req, res);
+    UserController.getCartTotal(req, res);
 })
 
 module.exports = UserRoutes;

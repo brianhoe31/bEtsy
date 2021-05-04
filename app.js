@@ -3,7 +3,7 @@ const App           = Express();
 const BodyParser    = require('body-parser')
 const CookieParser  = require('cookie-parser');
 const Session       = require('express-session')
-const database      = require('./config/database.js');
+// const database      = require('./config/database.js');
 
 /* 
     DOCU: Session Provider 

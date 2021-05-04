@@ -1,4 +1,3 @@
-const { checkCredentials } = require("../models/login.model.js");
 const LoginModel = require("../models/login.model.js");
 
 class LoginController {

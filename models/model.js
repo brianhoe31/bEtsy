@@ -1,10 +1,9 @@
-const connection    = require("../config/database")
+const Connection    = require("../config/database")
 
 class Model {
-
     executeQuery(query, values) {
         return new Promise ((resolve, reject) => {
-            connection.query(query, values, function (err, result){
+            Connection.query(query, values, function (err, result){
                 if(err) {
                     reject (err);
                 }else {

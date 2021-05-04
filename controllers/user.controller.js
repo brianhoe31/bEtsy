@@ -15,26 +15,26 @@ class UserController {
     //get product overview page 
     async products(req, res) {
         //get all products 
-        const result = await UserModel.get_all_products();
-        const category_filter_result = await UserModel.get_unique_category(req, res);
+        const result = await UserModel.getAllProducts();
+        const category_filter_result = await UserModel.getUniqueCategory(req, res);
 
         res.render("../views/user/index", { products: result, category: '', filter: category_filter_result });
     }
 
     //get product overview page specific to a category filter
-    async products_show_category(req, res) {
+    async productsShowCategory(req, res) {
         //get category products
-        const category_result = await UserModel.get_all_category(req, res);
-        const category_filter_result = await UserModel.get_unique_category(req, res);
+        const category_result = await UserModel.getAllCategory(req, res);
+        const category_filter_result = await UserModel.getUniqueCategory(req, res);
 
         res.render("../views/user/index", { products: category_result, category: req.params.category, filter: category_filter_result });
     }
 
-    async product_show(req, res) {
-        const result = await UserModel.get_product(req, res);
+    async productShow(req, res) {
+        const result = await UserModel.getProduct(req, res);
 
         if (req.cookies.cart !== undefined) {
-            res.render("../views/user/show", { product: result, cart: UserModel.cart_total });
+            res.render("../views/user/show", { product: result, cart: UserModel.cartTotal });
             return;
         }
 
@@ -47,7 +47,7 @@ class UserController {
         let total = 0;
         if( req.cookies.cart !== undefined){
             for(let i =0; i<req.cookies.cart.items.length; i++){
-                let data = await UserModel.get_cart_product(req.cookies.cart.items[i].id);
+                let data = await UserModel.getCartProduct(req.cookies.cart.items[i].id);
                 cart.push({item:data, quantity:req.cookies.cart.items[i].quantity});
                 total += data[0].price * req.cookies.cart.items[i].quantity;
             }
@@ -57,7 +57,7 @@ class UserController {
     }
 
     //when 'add product' is hit, updates shopping cart in the cookie
-    product_add_cart(req, res) {
+    productAddCart(req, res) {
         const id = req.params.id;
         const qty = parseInt(req.body.quantity);
 
@@ -66,7 +66,7 @@ class UserController {
             res.cookie('cart', { items: [{ id: id, quantity: qty }] });
 
 
-            res.json({ cart_total: UserModel.cart_total(req, res) })
+            res.json({ cart_total: UserModel.cartTotal(req, res) })
             return;
         } else {
             //check if this item exists in the cart, if it does, add to existing item qty
@@ -74,7 +74,7 @@ class UserController {
                 if (req.cookies.cart.items[i].id === id) {
                     req.cookies.cart.items[i].quantity += qty;
 
-                    res.json({ cart_total: UserModel.cart_total(req, res) })
+                    res.json({ cart_total: UserModel.cartTotal(req, res) })
                     return;
                 }
             }
@@ -85,19 +85,19 @@ class UserController {
         items.push({ id: id, quantity: qty });
 
         res.cookie('cart', { items: items });
-        res.json({ cart_total: UserModel.cart_total(req, res) })
+        res.json({ cart_total: UserModel.cartTotal(req, res) })
     }
 
     //cart item counter in header.  Updates for every page
-    get_cart_total(req, res) {
-        res.json({ cart_total: UserModel.cart_total(req, res) });
+    getCartTotal(req, res) {
+        res.json({ cart_total: UserModel.cartTotal(req, res) });
     }
 
-    async cart_checkout(req, res) {
+    async cartCheckout(req, res) {
         //take customer data and add it to the 'customers' table in DB 
-        const data = await UserModel.add_customer(req, res);
-        await UserModel.new_order(req, res);
-        await UserModel.create_order_product(req, res);
+        const data = await UserModel.addCustomer(req, res);
+        await UserModel.newOrder(req, res);
+        await UserModel.createOrderProduct(req, res);
         res.cookie('cart', { items: [] });
 
         res.render("../views/user/cart/thank_you");
