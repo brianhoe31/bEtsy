@@ -1,12 +1,11 @@
-const Mysql = require('mysql');
 const Model = require('./model.js');
 const md5 = require('md5');
 
 
 class LoginModel extends Model {
-	constructor() {
-		super();
-	}
+    constructor() {
+        super();
+    }
     ///////REGISTRATION PAGE //////////
     //Check all input fields meet proper guidelines.
     validateRegistration(req, res) {
@@ -16,7 +15,7 @@ class LoginModel extends Model {
             req.session.error.push('Must be a valid email address.');
         }
 
-        if (req.body.password.length < 4) {
+        if (req.body.password.length < 5) {
             req.session.error.push('Password must be at least 4 characters');
         } else if (req.body.password !== req.body.password_confirmation) {
             req.session.error.push('Passwords must be matching');
@@ -26,21 +25,26 @@ class LoginModel extends Model {
     }
 
     //check if there's a duplicate email already existing 
-    async duplicateEmail(req, res){
+    async duplicateEmail(req, res, next ) {
         const query = "SELECT * FROM users WHERE email = ?";
         const value = req.body.email;
 
-        const data = await this.executeQuery(query, value);
+        try{
+            const data = await this.executeQuery(query, value);
 
-        if(data.length === 0){
-            return false;
-        }else{
-            return true;
+            if (data.length === 0) {
+                return false;
+            } else {
+                return true;
+            }
+        } catch (err){
+            next(err);
         }
+
     }
 
     //Add new user to the db
-    createUser(req, res) {
+    async createUser(req, res, next) {
         const first_name = req.body.first_name;
         const last_name = req.body.last_name;
         const email = req.body.email;
@@ -53,11 +57,16 @@ class LoginModel extends Model {
         const query = "INSERT INTO users (first_name, last_name, email, password, salt, admin, created_at, updated_at) VALUES (?,?,?,?,?,0,NOW(), NOW())";
         const values = [first_name, last_name, email, password, salt];
 
-        const result = this.executeQuery(query, values);
+        try {
+            this.executeQuery(query, values);
+        } catch (err) {
+            next(err);
+        }
+
     }
 
     ///////LOGIN PAGE //////////
-     //Check all input fields meet proper guidelines.
+    //Check all input fields meet proper guidelines.
     validateLogin(req, res) {
         const email_regex = /\S+@\S+\.\S+/;
 
@@ -78,9 +87,9 @@ class LoginModel extends Model {
 
         // let result = this.executeQuery(query, value)
         const user = await this.executeQuery(query, value);
-        
-        if(user.length === 0){
-            return false; 
+
+        if (user.length === 0) {
+            return false;
         }
 
         const password = md5(req.body.password + user[0].salt);

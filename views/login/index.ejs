@@ -15,13 +15,11 @@
                         <input type="password" name="password" class="form-control" id="exampleInputPassword1"
                             placeholder="Password">
                     </div>
-    
+
                     <% if(error !==undefined){ %>
-                        <% error.forEach((err)=> { %>
-                            <p class="error">
-                                <%= err %>
-                            </p>
-                        <% }) %>
+                        <% for(let i=0; i<error.length; i++){ %>
+                            <p class="error"><%= error[i] %></p>
+                        <% } %>
                     <% } %>
     
                     <div class="form-group">

@@ -14,7 +14,7 @@ LoginRoutes.get("/new", function(req, res){
     LoginController.new(req, res,);
 })
 
-LoginRoutes.post("/new", function(req, res){
+LoginRoutes.post("/new", async function(req, res){
     LoginController.create(req, res);
 })
 

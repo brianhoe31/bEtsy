@@ -25,9 +25,10 @@ class LoginController {
         } else {
             const result = await LoginModel.duplicateEmail(req, res);
             if (result === false) {
-                LoginModel.createUser(req, res);
+                await LoginModel.createUser(req, res);
                 res.redirect("/");
             } else {
+                req.session.error.push("Email already exists");
                 res.redirect("/login/new");
             }
         }
