@@ -1,5 +1,6 @@
 const Model = require('./model.js');
 const md5 = require('md5');
+const { response } = require('express');
 
 
 class LoginModel extends Model {
@@ -7,7 +8,7 @@ class LoginModel extends Model {
         super();
     }
     ///////REGISTRATION PAGE //////////
-    //Check all input fields meet proper guidelines.
+    /* Check all input fields meet proper guidelines. */
     validateRegistration(req, res) {
         const email_regex = /\S+@\S+\.\S+/;
 
@@ -24,12 +25,12 @@ class LoginModel extends Model {
         return req.session.error.length;
     }
 
-    //check if there's a duplicate email already existing 
-    async duplicateEmail(req, res, next ) {
+    /* Check if there's a duplicate email already existing. */
+    async duplicateEmail(req, res, next) {
         const query = "SELECT * FROM users WHERE email = ?";
         const value = req.body.email;
 
-        try{
+        try {
             const data = await this.executeQuery(query, value);
 
             if (data.length === 0) {
@@ -37,36 +38,39 @@ class LoginModel extends Model {
             } else {
                 return true;
             }
-        } catch (err){
-            next(err);
-        }
-
-    }
-
-    //Add new user to the db
-    async createUser(req, res, next) {
-        const first_name = req.body.first_name;
-        const last_name = req.body.last_name;
-        const email = req.body.email;
-
-        //sorts 'juice' into a shuffled salt
-        const salt = ('juice').split('').sort(function () { return 0.5 - Math.random() }).join('');
-        const password = md5(req.body.password + salt);
-
-
-        const query = "INSERT INTO users (first_name, last_name, email, password, salt, admin, created_at, updated_at) VALUES (?,?,?,?,?,0,NOW(), NOW())";
-        const values = [first_name, last_name, email, password, salt];
-
-        try {
-            this.executeQuery(query, values);
         } catch (err) {
             next(err);
         }
 
     }
 
+    /* Add new user to the database. */
+    async createUser(req, res, next) {
+        const first_name = req.body.first_name;
+        const last_name = req.body.last_name;
+        const email = req.body.email;
+
+        /* sorts 'juice' into a shuffled salt */
+        const salt = ('juice').split('').sort(function () { return 0.5 - Math.random() }).join('');
+        const password = md5(req.body.password + salt);
+
+        let response_data = { status: false, result: {}, err: null };
+
+        try {
+            const query = "INSERT INTO users (first_name, last_name, email, password, salt, admin, created_at, updated_at) VALUES (?,?,?,?,?,0,NOW(), NOW())";
+            const values = [first_name, last_name, email, password, salt];
+
+            response_data = this.executeQuery(query, values);
+            response_data.status = true;
+        } catch (err) {
+            response_data.err = err;
+            response_data.message = "Error creating new user";
+        }
+
+    }
+
     ///////LOGIN PAGE //////////
-    //Check all input fields meet proper guidelines.
+    /* Check all input fields meet proper guidelines. */
     validateLogin(req, res) {
         const email_regex = /\S+@\S+\.\S+/;
 
@@ -80,25 +84,31 @@ class LoginModel extends Model {
         return req.session.error.length;
     }
 
-    //Check if the account exists & validate password
+    /* Check if the account exists & validate password. */
     async checkCredentials(req, res) {
-        const query = "SELECT email, password, salt FROM users WHERE email = ? LIMIT 1";
-        const value = [req.body.email];
+        let response_data = { status: false, result: {}, err: null };
 
-        // let result = this.executeQuery(query, value)
-        const user = await this.executeQuery(query, value);
+        try {
+            const query = "SELECT email, passwor, salt FROM users WHERE email = ? LIMIT 1";
+            const value = [req.body.email];
 
-        if (user.length === 0) {
-            return false;
+            response_data.status = true;
+            response_data.result = await this.executeQuery(query, value);
+
+            if (!response_data.result) {
+                return false;
+            }
+
+            const password = md5(req.body.password + response_data.result[0].salt);
+
+            if (password !== response_data.result[0].password) {
+                return false
+            }
+        } catch (err) {
+            response_data.err = err;
+            response_data.message = `Error #${response_data.err.errno}: Failed to Check Credentials`;
         }
-
-        const password = md5(req.body.password + user[0].salt);
-
-        if (password == user[0].password) {
-            return user;
-        } else {
-            return false;
-        }
+        return response_data;
     }
 
 }

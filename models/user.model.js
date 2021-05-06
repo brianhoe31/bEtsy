@@ -8,46 +8,46 @@ class UserModel extends Model {
         return await this.executeQuery(query);
     }
 
-    async getAllCategory(req, res){
+    async getAllCategory(req, res) {
         const query = "SELECT products.id AS id, products.name AS product, price, description, inventory, images.name AS image, categories.name AS category FROM products LEFT JOIN images ON images.id = (SELECT images.id FROM images WHERE products.id = images.product_id ORDER BY images.id LIMIT 1) LEFT JOIN categories ON products.category_id = categories.id WHERE categories.name = ?";
         const value = req.params.category;
 
-        return await this.executeQuery(query,value);
+        return await this.executeQuery(query, value);
     }
 
-    async getUniqueCategory(req, res){
+    async getUniqueCategory(req, res) {
         const query = "SELECT * FROM categories";
 
         return await this.executeQuery(query);
     }
 
-    async getProduct(req, res){
+    async getProduct(req, res) {
         const query = "SELECT products.id AS id, products.name AS product, price, description, inventory, images.name AS image, categories.name AS category FROM products LEFT JOIN images ON products.id = images.product_id LEFT JOIN categories ON products.category_id = categories.id WHERE products.id = ?";
         const value = req.params.id;
 
         return await this.executeQuery(query, value);
     }
 
-    async getNewCustomerId(req, res){
+    async getNewCustomerId(req, res) {
         const query = "SELECT id FROM customers ORDER BY id DESC LIMIT 1";
 
         return await this.executeQuery(query);
     }
 
-    async getNewOrderId(req, res){
+    async getNewOrderId(req, res) {
         const query = "SELECT id FROM orders ORDER BY id DESC LIMIT 1";
 
         return await this.executeQuery(query);
     }
 
-    async getCartProduct(id){
+    async getCartProduct(id) {
         const query = "SELECT products.id AS id, products.name AS product, price, description, inventory, images.name AS image, categories.name AS category FROM products LEFT JOIN images ON images.id = (SELECT images.id FROM images WHERE products.id = images.product_id ORDER BY images.id LIMIT 1) LEFT JOIN categories ON products.category_id = categories.id WHERE products.id = ?";
         const value = id;
 
         return await this.executeQuery(query, value);
     }
 
-    //helper function to calculate the cart total
+    /* Helper function to calculate the cart total */
     cartTotal(req, res) {
         let cart_total = 0;
         if (req.cookies.cart !== undefined) {
@@ -55,12 +55,10 @@ class UserModel extends Model {
                 cart_total += req.cookies.cart.items[i].quantity;
             }
         }
-
         return cart_total;
     }
 
-
-    async addCustomer(req, res){
+    async addCustomer(req, res) {
         const first_name = req.body.first_name;
         const last_name = req.body.last_name;
         const email = req.body.email;
@@ -75,10 +73,10 @@ class UserModel extends Model {
         return await this.executeQuery(query, values);
     }
 
-    async newOrder(req, res){
+    async newOrder(req, res) {
         const total = parseFloat(req.body.total).toFixed(2);
-        const shipping = parseFloat(total*.1).toFixed(2); 
-        const final_total = parseFloat(total*1.1).toFixed(2);
+        const shipping = parseFloat(total * .1).toFixed(2);
+        const final_total = parseFloat(total * 1.1).toFixed(2);
         const status_id = 1;
         const user_data = await this.getNewCustomerId();
         const user_id = user_data[0].id;
@@ -89,7 +87,7 @@ class UserModel extends Model {
         return await this.executeQuery(query, values);
     }
 
-    async createOrderProduct(req, res){
+    async createOrderProduct(req, res) {
         const order_data = await this.getNewOrderId();
         const order_id = order_data[0].id;
 
@@ -102,7 +100,6 @@ class UserModel extends Model {
 
             await this.executeQuery(query, values);
         }
-
     }
 }
 

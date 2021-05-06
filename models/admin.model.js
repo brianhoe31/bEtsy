@@ -39,14 +39,14 @@ class AdminModel extends Model {
         return result;
     }
 
-    async getOrders(req, res){
+    async getOrders(req, res) {
         const query = "SELECT orders.id, orders.status_id, orders.shipping_cost, orders.total_cost, customers.first_name, orders.created_at FROM orders LEFT JOIN customers ON orders.user_id = customers.id";
 
         const result = await this.executeQuery(query);
         return result;
     }
 
-    async getOrder(req, res){
+    async getOrder(req, res) {
         const query = "SELECT orders.id AS id, orders.status_id AS status, orders.shipping_cost AS shipping, orders.total_cost as total, products.id AS item_id, order_products.quantity AS quantity, products.name AS item_name, products.price AS price, customers.first_name AS first_name, customers.last_name AS last_name, customers.street AS address, customers.city AS city, customers. state AS state, customers.zipcode AS zipcode FROM orders LEFT JOIN order_products ON orders.id = order_products.order_id LEFT JOIN products ON order_products.product_id = products.id LEFT JOIN customers ON orders.user_id = customers.id WHERE orders.id = ?";
         const value = req.params.id;
 
@@ -54,7 +54,7 @@ class AdminModel extends Model {
         return result;
     }
 
-    async getProduct(req, res){
+    async getProduct(req, res) {
         let value = req.params.id;
         let query = "SELECT * FROM products LEFT JOIN images ON products.id = images.product_id WHERE products.id = ?";
 
@@ -62,18 +62,18 @@ class AdminModel extends Model {
         return result;
     }
 
-    async getNewProductId(req, res){
+    async getNewProductId(req, res) {
         let query = "SELECT * FROM products ORDER BY id DESC LIMIT 1";
 
         const result = await this.executeQuery(query);
         return result;
     }
 
-    async addProductImages(req, res){
+    async addProductImages(req, res) {
         const data = await this.getNewProductId();
         const id = data[0].id;
 
-        for(var i=0; i< req.session.image_files.length; i++){
+        for (var i = 0; i < req.session.image_files.length; i++) {
             const name = req.session.image_files[i].name;
             const values = [id, name];
 
@@ -84,13 +84,13 @@ class AdminModel extends Model {
         req.session.image_files = [];
     }
 
-    async deleteProduct(req, res){
-        let value = req.params.id;
-        let query1 = "DELETE FROM images WHERE product_id = ?"
-        let query2 = "DELETE FROM products WHERE id = ?; ";
-        
-        await this.executeQuery(query1, value);
-        await this.executeQuery(query2, value);
+    async deleteProduct(req, res) {
+        let productID = req.params.id;
+        let imageQuery = "DELETE FROM images WHERE product_id = ?"
+        let productQuery = "DELETE FROM products WHERE id = ?; ";
+
+        await this.executeQuery(imageQuery, productID);
+        await this.executeQuery(productQuery, productID);
     }
 }
 
